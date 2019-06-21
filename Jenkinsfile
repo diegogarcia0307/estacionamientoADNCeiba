@@ -23,7 +23,7 @@ pipeline {
 				checkout([$class: 'GitSCM', branches: [[name: '*/master']] , 
 				doGenerateSubmoduleConfigurations: false, extensions: [], gitTool: 'Git_Centos' ,
 				submoduleCfg: [], userRemoteConfigs: [[ credentialsId: 'GitHub_diegogarcia0307',
-		 	 	url: 'https://github.com/diegogarcia0307/Estacionamiento_Ceiba']]])
+		 	 	url: 'https://github.com/diegogarcia0307/estacionamientoADNCeiba']]])
 		 	 	sh 'gradle clean'
 			}
 		}
