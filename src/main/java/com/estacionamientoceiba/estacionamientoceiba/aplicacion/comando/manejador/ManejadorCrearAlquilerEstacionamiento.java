@@ -4,14 +4,14 @@ import org.springframework.stereotype.Component;
 
 import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.ComandoAlquiler;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.Alquiler;
-import com.estacionamientoceiba.estacionamientoceiba.dominio.servicio.servicioCrearAlquiler;
+import com.estacionamientoceiba.estacionamientoceiba.dominio.servicio.ServicioCrearAlquiler;
 
 @Component
 public class ManejadorCrearAlquilerEstacionamiento {
 
-	private final servicioCrearAlquiler servicioCrearAlquiler;
+	private final ServicioCrearAlquiler servicioCrearAlquiler;
 
-	public ManejadorCrearAlquilerEstacionamiento(servicioCrearAlquiler servicio) {
+	public ManejadorCrearAlquilerEstacionamiento(ServicioCrearAlquiler servicio) {
 		servicioCrearAlquiler = servicio;
 	}
 

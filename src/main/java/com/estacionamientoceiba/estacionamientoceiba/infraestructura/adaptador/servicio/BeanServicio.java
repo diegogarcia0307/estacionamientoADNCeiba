@@ -5,15 +5,15 @@ import org.springframework.context.annotation.Configuration;
 
 import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.ManejadorCrearAlquilerEstacionamiento;
 import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.ManejadorListarAlquileresEstacionamiento;
-import com.estacionamientoceiba.estacionamientoceiba.dominio.servicio.servicioCrearAlquiler;
+import com.estacionamientoceiba.estacionamientoceiba.dominio.servicio.ServicioCrearAlquiler;
 import com.estacionamientoceiba.estacionamientoceiba.infraestructura.adaptador.repositorio.RepositorioAlquilerEnMemoria;
 
 @Configuration
 public class BeanServicio {
 
 	@Bean
-	public servicioCrearAlquiler servicioCrearAlquiler() {
-		return new servicioCrearAlquiler(new RepositorioAlquilerEnMemoria());
+	public ServicioCrearAlquiler servicioCrearAlquiler() {
+		return new ServicioCrearAlquiler(new RepositorioAlquilerEnMemoria());
 	}
 
 	/*
