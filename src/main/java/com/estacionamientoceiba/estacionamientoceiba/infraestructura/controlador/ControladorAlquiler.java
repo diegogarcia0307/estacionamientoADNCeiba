@@ -2,6 +2,7 @@ package com.estacionamientoceiba.estacionamientoceiba.infraestructura.controlado
 
 import java.util.Collection;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,25 +18,28 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@RequestMapping("/alquiler/registros")
+//@RequestMapping("/alquiler/registros")
 @Api(tags = { "Controlador alquiler" })
 public class ControladorAlquiler {
 
 	private final ManejadorCrearAlquilerEstacionamiento manejadorCrear;
 	private final ManejadorListarAlquileresEstacionamiento manejadorListar;
 
-	public ControladorAlquiler(ManejadorCrearAlquilerEstacionamiento manejadorCrear, ManejadorListarAlquileresEstacionamiento manejadorListar) {
+	public ControladorAlquiler(ManejadorCrearAlquilerEstacionamiento manejadorCrear,
+			ManejadorListarAlquileresEstacionamiento manejadorListar) {
 		this.manejadorCrear = manejadorCrear;
 		this.manejadorListar = manejadorListar;
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
 	@ApiOperation("listar")
+	@GetMapping("/alquiler/mostrar")
 	public Collection<Alquiler> listar() {
 		return this.manejadorListar.ejecutar();
 	}
 
-	@PostMapping
+	@RequestMapping(method = RequestMethod.POST)
+	@PostMapping("/alquiler/crear")
 	@ApiOperation("crearAlquiler")
 	public void crearAlquiler(@RequestBody ComandoAlquiler comandoIngresado) {
 		this.manejadorCrear.ejecutar(comandoIngresado);

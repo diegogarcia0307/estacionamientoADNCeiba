@@ -36,4 +36,17 @@ public class Vehiculo {
 		this.cilindraje = cilindraje;
 	}
 
+	public Vehiculo(Vehiculo vehiculo) {
+
+		ValidadorVehiculo.validarTipoVehiculo(vehiculo.getTipo(), TIPO_VEHICULO_OBLIGATORIO);
+		ValidadorVehiculo.validarPlaca(vehiculo.getPlaca(), PLACA_OBLIGATORIA);
+		ValidadorVehiculo.validarCilindraje(vehiculo.getCilindraje(), CILINDRAJE_CORRECTO);
+
+		this.tipo = vehiculo.getTipo();
+		this.placa = vehiculo.getPlaca();
+		this.marca = vehiculo.getMarca();
+		this.color = vehiculo.getColor();
+		this.cilindraje = vehiculo.getCilindraje();
+	}
+
 }
