@@ -36,7 +36,7 @@ public class ControladorAlquiler {
 
 	@PostMapping("/alquiler/crear")
 	@ApiOperation("crearAlquiler")
-	public void crearAlquiler(@RequestBody ComandoAlquiler comandoIngresado) {
-		this.manejadorCrear.ejecutar(comandoIngresado);
+	public boolean crearAlquiler(@RequestBody ComandoAlquiler comandoIngresado) {
+		return this.manejadorCrear.ejecutar(comandoIngresado);
 	}
 }

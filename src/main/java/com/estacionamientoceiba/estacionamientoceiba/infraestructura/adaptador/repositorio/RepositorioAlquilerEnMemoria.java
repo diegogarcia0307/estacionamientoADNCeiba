@@ -26,9 +26,9 @@ public class RepositorioAlquilerEnMemoria implements RepositorioAlquiler {
 	}
 
 	@Override
-	public void crear(Alquiler alquiler) {
+	public boolean crear(Alquiler alquiler) {
 		alquileres.put(UUID.randomUUID().toString(), alquiler);
-
+		return true;
 	}
 
 	@Override

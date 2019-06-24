@@ -13,7 +13,7 @@ public interface RepositorioAlquiler {
 	/**
 	 * Permite crear un alquiler
 	 */
-	void crear(Alquiler alquiler);
+	boolean crear(Alquiler alquiler);
 
 	/**
 	 * Permite modificar un alquiler

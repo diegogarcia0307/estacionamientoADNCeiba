@@ -17,11 +17,11 @@ public class ServicioCrearAlquilerEstacionamiento {
 		this.repositorioAlquiler = repositorioAlquiler;
 	}
 
-	public void ejecutar(Alquiler alquiler) {
+	public boolean ejecutar(Alquiler alquiler) {
 		verificarDisponibilidad(alquiler.getVehiculo().getTipo());
 		verificarPermanencia(alquiler);
 		new Vehiculo(alquiler.getVehiculo());
-		this.repositorioAlquiler.crear(alquiler);
+		return this.repositorioAlquiler.crear(alquiler);
 	}
 
 	private void verificarPermanencia(Alquiler alquiler) {
