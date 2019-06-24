@@ -2,6 +2,11 @@ package com.estacionamientoceiba.estacionamientoceiba.dominio.modelo;
 
 import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.validador.ValidadorVehiculo;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Setter
+@Getter
 public class Vehiculo {
 
 	private static final String PLACA_OBLIGATORIA = "La placa es obligatoria";
@@ -42,46 +47,6 @@ public class Vehiculo {
 		this.marca = vehiculo.getMarca();
 		this.color = vehiculo.getColor();
 		this.cilindraje = vehiculo.getCilindraje();
-	}
-
-	public String getPlaca() {
-		return placa;
-	}
-
-	public void setPlaca(String placa) {
-		this.placa = placa;
-	}
-
-	public String getMarca() {
-		return marca;
-	}
-
-	public void setMarca(String marca) {
-		this.marca = marca;
-	}
-
-	public String getColor() {
-		return color;
-	}
-
-	public void setColor(String color) {
-		this.color = color;
-	}
-
-	public String getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
-	}
-
-	public double getCilindraje() {
-		return cilindraje;
-	}
-
-	public void setCilindraje(double cilindraje) {
-		this.cilindraje = cilindraje;
 	}
 
 }
