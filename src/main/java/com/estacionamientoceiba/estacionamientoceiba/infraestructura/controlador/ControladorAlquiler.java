@@ -3,6 +3,7 @@ package com.estacionamientoceiba.estacionamientoceiba.infraestructura.controlado
 import java.util.Collection;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.ComandoAlquiler;
 import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.ManejadorCrearAlquilerEstacionamiento;
 import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.ManejadorListarAlquileresEstacionamiento;
+import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.ManejadorSalidaAlquilerEstacionamiento;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.Alquiler;
 
 import io.swagger.annotations.Api;
@@ -21,22 +23,31 @@ public class ControladorAlquiler {
 
 	private final ManejadorCrearAlquilerEstacionamiento manejadorCrear;
 	private final ManejadorListarAlquileresEstacionamiento manejadorListar;
+	private final ManejadorSalidaAlquilerEstacionamiento manejadorSalida;
 
 	public ControladorAlquiler(ManejadorCrearAlquilerEstacionamiento manejadorCrear,
-			ManejadorListarAlquileresEstacionamiento manejadorListar) {
+			ManejadorListarAlquileresEstacionamiento manejadorListar,
+			ManejadorSalidaAlquilerEstacionamiento manejadorSalida) {
 		this.manejadorCrear = manejadorCrear;
 		this.manejadorListar = manejadorListar;
+		this.manejadorSalida = manejadorSalida;
 	}
 
 	@ApiOperation("listar")
-	@GetMapping("/alquiler/mostrar")
+	@GetMapping("/alquiler/listar")
 	public Collection<Alquiler> listar() {
 		return this.manejadorListar.ejecutar();
 	}
 
-	@PostMapping("/alquiler/crear")
 	@ApiOperation("crearAlquiler")
+	@PostMapping("/alquiler/crear")
 	public boolean crearAlquiler(@RequestBody ComandoAlquiler comandoIngresado) {
 		return this.manejadorCrear.ejecutar(comandoIngresado);
+	}
+
+	@ApiOperation("salidaAlquiler")
+	@GetMapping("/alquiler/salida/{placa}")
+	public boolean salidaAlquiler(@PathVariable String placa) {
+		return this.manejadorSalida.salidaAlquiler(placa);
 	}
 }

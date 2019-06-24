@@ -1,6 +1,10 @@
 package com.estacionamientoceiba.estacionamientoceiba.dominio.servicio;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import com.estacionamientoceiba.estacionamientoceiba.dominio.excepcion.ExcepcionGenerica;
@@ -17,15 +21,15 @@ public class ServicioCrearAlquilerEstacionamiento {
 		this.repositorioAlquiler = repositorioAlquiler;
 	}
 
-	public boolean ejecutar(Alquiler alquiler) {
-		verificarDisponibilidad(alquiler.getVehiculo().getTipo());
-		verificarPermanencia(alquiler);
-		new Vehiculo(alquiler.getVehiculo());
+	public boolean ejecutar(Vehiculo vehiculo) {
+		verificarDisponibilidad(vehiculo.getTipo());
+		verificarPermanencia(vehiculo);
+		Alquiler alquiler = new Alquiler(new Vehiculo(vehiculo), obtenerHoraIngreso());
 		return this.repositorioAlquiler.crear(alquiler);
 	}
 
-	private void verificarPermanencia(Alquiler alquiler) {
-		if (repositorioAlquiler.verificarPermanencia(alquiler))
+	private void verificarPermanencia(Vehiculo vehiculo) {
+		if (repositorioAlquiler.verificarPermanencia(vehiculo.getPlaca()))
 			throw new ExcepcionGenerica(PERMANENCIA);
 	}
 
@@ -42,5 +46,19 @@ public class ServicioCrearAlquilerEstacionamiento {
 		if ((tipo.equalsIgnoreCase("CARRO") && count >= 20) || (tipo.equalsIgnoreCase("MOTO") && count >= 10)) {
 			throw new ExcepcionGenerica(NO_HAY_DISPONIBILIDAD);
 		}
+	}
+
+	private Date obtenerHoraIngreso() {
+		Calendar calendar = Calendar.getInstance();
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss dd-MM-yyyy");
+		String strDate = sdf.format(calendar.getTime());
+
+		SimpleDateFormat sp = new SimpleDateFormat("HH:mm:ss dd-MM-yyyy");
+		Date date = new Date();
+		try {
+			date = sp.parse(strDate);
+		} catch (ParseException e) {
+		}
+		return date;
 	}
 }

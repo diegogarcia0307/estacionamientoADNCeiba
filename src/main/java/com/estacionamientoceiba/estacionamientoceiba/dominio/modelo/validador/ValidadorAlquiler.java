@@ -21,7 +21,27 @@ public class ValidadorAlquiler {
 		}
 	}
 
-	public double calcularPagoMotos(Vehiculo vehiculo, Date fechaIngreso, Date fechaSalida) {
+	public static String verificarPlaca(String tipo, String placa, Date dia) {
+
+		placa = placa.toUpperCase();
+
+		if (tipo.equalsIgnoreCase("Carro") && placa.startsWith("A")) {
+
+			Calendar diaAux = Calendar.getInstance();
+			diaAux.setTime(dia);
+
+			int diaSemana = diaAux.get(Calendar.DAY_OF_WEEK);
+
+			if (!(diaSemana == Calendar.MONDAY || diaSemana == Calendar.SUNDAY)) {
+				throw new ExcepcionGenerica(HOY_NO_PUEDE_INGRESAR);
+			}
+
+		}
+
+		return "Puede ingresar";
+	}
+
+	public static double calcularPagoMotos(Vehiculo vehiculo, Date fechaIngreso, Date fechaSalida) {
 
 		LocalDateTime dateIngreso = fechaIngreso.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
 		LocalDateTime dateSalida = fechaSalida.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
@@ -52,7 +72,7 @@ public class ValidadorAlquiler {
 		return valorPagar;
 	}
 
-	public double calcularPagoCarros(Vehiculo vehiculo, Date fechaIngreso, Date fechaSalida) {
+	public static double calcularPagoCarros(Vehiculo vehiculo, Date fechaIngreso, Date fechaSalida) {
 
 		LocalDateTime dateIngresoCarro = fechaIngreso.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
 		LocalDateTime dateSalidaCarro = fechaSalida.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
@@ -75,26 +95,6 @@ public class ValidadorAlquiler {
 
 			}
 		return valorPagarCarro;
-	}
-
-	public static String verificarPlaca(String tipo, String placa, Date dia) {
-
-		placa = placa.toUpperCase();
-
-		if (tipo.equalsIgnoreCase("Carro") && placa.startsWith("A")) {
-
-			Calendar diaAux = Calendar.getInstance();
-			diaAux.setTime(dia);
-
-			int diaSemana = diaAux.get(Calendar.DAY_OF_WEEK);
-
-			if (!(diaSemana == Calendar.MONDAY || diaSemana == Calendar.SUNDAY)) {
-				throw new ExcepcionGenerica(HOY_NO_PUEDE_INGRESAR);
-			}
-
-		}
-
-		return "Puede ingresar";
 	}
 
 	public boolean verificarCilindrajeMoto(Vehiculo vehiculo) {

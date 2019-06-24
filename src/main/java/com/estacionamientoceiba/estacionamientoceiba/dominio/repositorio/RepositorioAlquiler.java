@@ -18,12 +18,12 @@ public interface RepositorioAlquiler {
 	/**
 	 * Permite modificar un alquiler
 	 */
-	boolean modificar(String placa);
+	boolean salidaAlquiler(String placa);
 
 	/**
 	 * Ayuda a verificar si el vehiculo ya se encuentra dentro del parqueadero
 	 */
-	boolean verificarPermanencia(Alquiler alquiler);
+	boolean verificarPermanencia(String placa);
 
 	/**
 	 * Genera un listado de alquiler

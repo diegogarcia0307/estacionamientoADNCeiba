@@ -16,7 +16,6 @@ public class ManejadorCrearAlquilerEstacionamiento {
 	}
 
 	public boolean ejecutar(ComandoAlquiler comando) {
-		return this.servicioCrearAlquiler.ejecutar(new Alquiler(comando.getVehiculo(), comando.getFechaIngreso(),
-				comando.getFechaSalida(), comando.getPuesto(), comando.getPago()));
+		return this.servicioCrearAlquiler.ejecutar(comando.getVehiculo());
 	}
 }

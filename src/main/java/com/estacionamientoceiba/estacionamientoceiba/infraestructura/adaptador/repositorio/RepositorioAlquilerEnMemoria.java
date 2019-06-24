@@ -21,8 +21,8 @@ public class RepositorioAlquilerEnMemoria implements RepositorioAlquiler {
 
 	static {
 		alquileres = new ConcurrentHashMap<>();
-		alquileres.put(UUID.randomUUID().toString(),
-				new Alquiler(new Vehiculo("Carro", "WEQ43S", 2000, "NISSAN", "RED"), new Date(), new Date(), "#1C", 0));
+		// alquileres.put(UUID.randomUUID().toString(),
+		// new Alquiler(new Vehiculo("Carro", "WEQ43S", 2000, "NISSAN", "RED"));
 	}
 
 	@Override
@@ -32,7 +32,7 @@ public class RepositorioAlquilerEnMemoria implements RepositorioAlquiler {
 	}
 
 	@Override
-	public boolean modificar(String placa) {
+	public boolean salidaAlquiler(String placa) {
 		for (Alquiler alquiler : obtenerAlquileres()) {
 
 			if (placa.equalsIgnoreCase(alquiler.getVehiculo().getPlaca())) {
@@ -56,9 +56,8 @@ public class RepositorioAlquilerEnMemoria implements RepositorioAlquiler {
 	}
 
 	@Override
-	public boolean verificarPermanencia(Alquiler alquiler) {
-		return obtenerAlquileres().stream()
-				.anyMatch(fila -> fila.getVehiculo().getPlaca().equalsIgnoreCase(alquiler.getVehiculo().getPlaca()));
+	public boolean verificarPermanencia(String placa) {
+		return obtenerAlquileres().stream().anyMatch(fila -> fila.getVehiculo().getPlaca().equalsIgnoreCase(placa));
 	}
 
 	@Override

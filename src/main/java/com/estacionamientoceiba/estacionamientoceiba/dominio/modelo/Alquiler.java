@@ -32,6 +32,14 @@ public class Alquiler {
 		this.pago = pago;
 	}
 
+	public Alquiler(Vehiculo vehiculo, Date fechaIngreso) {
+		ValidadorAlquiler.validarVehiculo(vehiculo);
+		ValidadorAlquiler.verificarPlaca(vehiculo.getTipo(), vehiculo.getPlaca(), fechaIngreso);
+
+		this.vehiculo = vehiculo;
+		this.fechaIngreso = fechaIngreso;
+	}
+
 	public Vehiculo getVehiculo() {
 		return vehiculo;
 	}
