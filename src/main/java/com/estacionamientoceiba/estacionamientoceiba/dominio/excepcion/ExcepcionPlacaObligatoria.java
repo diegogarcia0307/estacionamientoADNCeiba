@@ -1,4 +1,4 @@
-package com.estacionamientoceiba.estacionamientoceiba.dominio.exepcion;
+package com.estacionamientoceiba.estacionamientoceiba.dominio.excepcion;
 
 public class ExcepcionPlacaObligatoria extends RuntimeException {
 

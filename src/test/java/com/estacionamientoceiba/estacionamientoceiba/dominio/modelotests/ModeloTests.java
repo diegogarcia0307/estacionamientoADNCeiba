@@ -6,10 +6,10 @@ import org.junit.Test;
 
 import com.estacionamientoceiba.estacionamientoceiba.dominio.databuilder.AlquilerDataBuilder;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.databuilder.VehiculoDataBuilder;
-import com.estacionamientoceiba.estacionamientoceiba.dominio.exepcion.ExcepcionCilindrajeCorrecto;
-import com.estacionamientoceiba.estacionamientoceiba.dominio.exepcion.ExcepcionPlacaObligatoria;
-import com.estacionamientoceiba.estacionamientoceiba.dominio.exepcion.ExcepcionTipoVehiculo;
-import com.estacionamientoceiba.estacionamientoceiba.dominio.exepcion.ExcepcionVehiculoObligatorio;
+import com.estacionamientoceiba.estacionamientoceiba.dominio.excepcion.ExcepcionCilindrajeCorrecto;
+import com.estacionamientoceiba.estacionamientoceiba.dominio.excepcion.ExcepcionPlacaObligatoria;
+import com.estacionamientoceiba.estacionamientoceiba.dominio.excepcion.ExcepcionTipoVehiculo;
+import com.estacionamientoceiba.estacionamientoceiba.dominio.excepcion.ExcepcionVehiculoObligatorio;
 
 public class ModeloTests {
 

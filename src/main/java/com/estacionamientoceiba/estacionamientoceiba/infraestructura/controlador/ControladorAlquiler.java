@@ -5,8 +5,6 @@ import java.util.Collection;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.ComandoAlquiler;
@@ -18,7 +16,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-//@RequestMapping("/alquiler/registros")
 @Api(tags = { "Controlador alquiler" })
 public class ControladorAlquiler {
 
@@ -31,14 +28,12 @@ public class ControladorAlquiler {
 		this.manejadorListar = manejadorListar;
 	}
 
-	@RequestMapping(method = RequestMethod.GET)
 	@ApiOperation("listar")
 	@GetMapping("/alquiler/mostrar")
 	public Collection<Alquiler> listar() {
 		return this.manejadorListar.ejecutar();
 	}
 
-	@RequestMapping(method = RequestMethod.POST)
 	@PostMapping("/alquiler/crear")
 	@ApiOperation("crearAlquiler")
 	public void crearAlquiler(@RequestBody ComandoAlquiler comandoIngresado) {

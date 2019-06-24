@@ -9,6 +9,7 @@ import java.util.Date;
 import org.junit.Test;
 
 import com.estacionamientoceiba.estacionamientoceiba.dominio.databuilder.VehiculoDataBuilder;
+import com.estacionamientoceiba.estacionamientoceiba.dominio.excepcion.ExcepcionGenerica;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.Vehiculo;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.validador.ValidadorAlquiler;
 
@@ -135,13 +136,13 @@ public class DominioTests {
 		String esperado = "Puede ingresar";
 
 		// Act
-		String actual = validador.verificarPlaca("AR43S", fecha);
+		String actual = validador.verificarPlaca("Carro", "AR43S", fecha);
 
 		// Assert
 		assert (actual.equalsIgnoreCase(esperado));
 	}
 
-	@Test
+	@Test(expected = ExcepcionGenerica.class)
 	public void verificarPlacaNOPermitidaTest() throws ParseException {
 		// Arrange
 		ValidadorAlquiler validador = new ValidadorAlquiler();
@@ -152,7 +153,7 @@ public class DominioTests {
 		String esperado = "No puede ingresar";
 
 		// Act
-		String actual = validador.verificarPlaca("AR43S", fecha);
+		String actual = validador.verificarPlaca("Carro", "AR43S", fecha);
 
 		// Assert
 		assert (actual.equalsIgnoreCase(esperado));

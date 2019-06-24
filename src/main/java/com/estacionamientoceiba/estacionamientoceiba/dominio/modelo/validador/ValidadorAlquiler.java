@@ -5,17 +5,19 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
-import com.estacionamientoceiba.estacionamientoceiba.dominio.exepcion.ExcepcionVehiculoObligatorio;
-import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.Alquiler;
+import com.estacionamientoceiba.estacionamientoceiba.dominio.excepcion.ExcepcionGenerica;
+import com.estacionamientoceiba.estacionamientoceiba.dominio.excepcion.ExcepcionVehiculoObligatorio;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.Vehiculo;
 
 public class ValidadorAlquiler {
 
-	public static void validarVehiculo(Object objeto, String mensaje) {
+	private static final String VEHICULO_OBLIGATORIO = "El vehiculo es obligatorio para hacer el registro";
+	private static final String HOY_NO_PUEDE_INGRESAR = "El carro no puede ingresar el día de hoy";
+
+	public static void validarVehiculo(Object objeto) {
 		if (objeto == null) {
-			throw new ExcepcionVehiculoObligatorio(mensaje);
+			throw new ExcepcionVehiculoObligatorio(VEHICULO_OBLIGATORIO);
 		}
 	}
 
@@ -75,15 +77,11 @@ public class ValidadorAlquiler {
 		return valorPagarCarro;
 	}
 
-	public boolean verificarDisponibilidad(List<Alquiler> plazas, int capacidad) {
-		return plazas.size() < capacidad;
-	}
-
-	public String verificarPlaca(String placa, Date dia) {
+	public static String verificarPlaca(String tipo, String placa, Date dia) {
 
 		placa = placa.toUpperCase();
 
-		if (placa.startsWith("A")) {
+		if (tipo.equalsIgnoreCase("Carro") && placa.startsWith("A")) {
 
 			Calendar diaAux = Calendar.getInstance();
 			diaAux.setTime(dia);
@@ -91,7 +89,7 @@ public class ValidadorAlquiler {
 			int diaSemana = diaAux.get(Calendar.DAY_OF_WEEK);
 
 			if (!(diaSemana == Calendar.MONDAY || diaSemana == Calendar.SUNDAY)) {
-				return "No puede ingresar";
+				throw new ExcepcionGenerica(HOY_NO_PUEDE_INGRESAR);
 			}
 
 		}

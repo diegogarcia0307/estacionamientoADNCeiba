@@ -5,18 +5,18 @@ import java.util.Collection;
 import org.springframework.stereotype.Component;
 
 import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.Alquiler;
-import com.estacionamientoceiba.estacionamientoceiba.dominio.repositorio.RepositorioAlquiler;
+import com.estacionamientoceiba.estacionamientoceiba.dominio.servicio.ServicioListarAlquiler;
 
 @Component
 public class ManejadorListarAlquileresEstacionamiento {
 
-	private final RepositorioAlquiler repositorioAlquiler;
+	private final ServicioListarAlquiler servicioListarAlquiler;
 
-	public ManejadorListarAlquileresEstacionamiento(RepositorioAlquiler repositorio) {
-		this.repositorioAlquiler = repositorio;
+	public ManejadorListarAlquileresEstacionamiento(ServicioListarAlquiler servicio) {
+		this.servicioListarAlquiler = servicio;
 	}
 
 	public Collection<Alquiler> ejecutar() {
-		return this.repositorioAlquiler.listar();
+		return this.servicioListarAlquiler.listar();
 	}
 }
