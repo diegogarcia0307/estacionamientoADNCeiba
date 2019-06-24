@@ -13,7 +13,7 @@ import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.Vehiculo;
 public class ValidadorAlquiler {
 
 	private static final String VEHICULO_OBLIGATORIO = "El vehiculo es obligatorio para hacer el registro";
-	private static final String HOY_NO_PUEDE_INGRESAR = "El carro no puede ingresar el día de hoy";
+	private static final String HOY_NO_PUEDE_INGRESAR = "El carro no puede ingresar el dia de hoy";
 
 	public static void validarVehiculo(Object objeto) {
 		if (objeto == null) {
