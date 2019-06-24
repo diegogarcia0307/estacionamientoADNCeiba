@@ -47,7 +47,7 @@ public class ControladorAlquiler {
 
 	@ApiOperation("salidaAlquiler")
 	@GetMapping("/alquiler/salida/{placa}")
-	public boolean salidaAlquiler(@PathVariable String placa) {
+	public double salidaAlquiler(@PathVariable String placa) {
 		return this.manejadorSalida.salidaAlquiler(placa);
 	}
 }

@@ -2,16 +2,17 @@ package com.estacionamientoceiba.estacionamientoceiba.infraestructura.adaptador.
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.stereotype.Repository;
 
 import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.Alquiler;
-import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.Vehiculo;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.repositorio.RepositorioAlquiler;
 
 @Repository
@@ -21,8 +22,6 @@ public class RepositorioAlquilerEnMemoria implements RepositorioAlquiler {
 
 	static {
 		alquileres = new ConcurrentHashMap<>();
-		// alquileres.put(UUID.randomUUID().toString(),
-		// new Alquiler(new Vehiculo("Carro", "WEQ43S", 2000, "NISSAN", "RED"));
 	}
 
 	@Override
@@ -32,7 +31,10 @@ public class RepositorioAlquilerEnMemoria implements RepositorioAlquiler {
 	}
 
 	@Override
-	public boolean salidaAlquiler(String placa) {
+	public Alquiler salidaAlquiler(String placa) {
+
+		Alquiler alquilerSalir = new Alquiler();
+
 		for (Alquiler alquiler : obtenerAlquileres()) {
 
 			if (placa.equalsIgnoreCase(alquiler.getVehiculo().getPlaca())) {
@@ -47,12 +49,13 @@ public class RepositorioAlquilerEnMemoria implements RepositorioAlquiler {
 
 					alquiler.setFechaSalida(date);
 
-					return true;
+					alquilerSalir = alquiler;
 				} catch (ParseException e) {
 				}
+
 			}
 		}
-		return false;
+		return alquilerSalir;
 	}
 
 	@Override
@@ -67,5 +70,19 @@ public class RepositorioAlquilerEnMemoria implements RepositorioAlquiler {
 
 	private static Collection<Alquiler> obtenerAlquileres() {
 		return alquileres.values();
+	}
+
+	@Override
+	public void eliminarPlaza(String placa) {
+
+		List<Alquiler> lista = new ArrayList<>(listar());
+		Alquiler alquiler;
+
+		for (int i = 0; i < lista.size(); i++) {
+			if (lista.get(i).getVehiculo().getPlaca().equalsIgnoreCase(placa)) {
+				alquiler = lista.get(i);
+				alquileres.values().remove(alquiler);
+			}
+		}
 	}
 }

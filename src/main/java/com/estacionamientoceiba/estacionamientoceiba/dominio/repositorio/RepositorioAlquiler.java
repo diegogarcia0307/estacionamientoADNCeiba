@@ -16,9 +16,14 @@ public interface RepositorioAlquiler {
 	boolean crear(Alquiler alquiler);
 
 	/**
-	 * Permite modificar un alquiler
+	 * Permite calcular la fecha de salida y el valor a pagar
 	 */
-	boolean salidaAlquiler(String placa);
+	Alquiler salidaAlquiler(String placa);
+
+	/**
+	 * Permite eliminar el espacio del parqueadero
+	 */
+	void eliminarPlaza(String placa);
 
 	/**
 	 * Ayuda a verificar si el vehiculo ya se encuentra dentro del parqueadero

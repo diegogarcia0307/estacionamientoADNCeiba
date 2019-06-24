@@ -15,9 +15,11 @@ public class ServicioSalidaAlquilerEstacionamiento {
 		this.repositorioAlquiler = repositorioAlquiler;
 	}
 
-	public boolean salidaAlquiler(String placa) {
+	public double salidaAlquiler(String placa) {
 		verificarExistencia(placa);
-		return (repositorioAlquiler.salidaAlquiler(placa));
+		double pago= calcularPago(repositorioAlquiler.salidaAlquiler(placa));
+		repositorioAlquiler.eliminarPlaza(placa);
+		return pago;
 	}
 
 	private void verificarExistencia(String placa) {
@@ -25,11 +27,14 @@ public class ServicioSalidaAlquilerEstacionamiento {
 			throw new ExcepcionGenerica(NO_EXISTE);
 	}
 
-	/*
-	 * private double calcularPago(Alquiler alquiler) { if
-	 * ("Moto".equalsIgnoreCase(alquiler.getVehiculo().getTipo())) {
-	 * ValidadorAlquiler.calcularPagoMotos(alquiler.getVehiculo(),
-	 * alquiler.getFechaIngreso(), ); } }
-	 */
+	private double calcularPago(Alquiler alquiler) {
+		if ("Moto".equalsIgnoreCase(alquiler.getVehiculo().getTipo())) {
+			return ValidadorAlquiler.calcularPagoMotos(alquiler.getVehiculo(), alquiler.getFechaIngreso(),
+					alquiler.getFechaSalida());
+		} else {
+			return ValidadorAlquiler.calcularPagoCarros(alquiler.getVehiculo(), alquiler.getFechaIngreso(),
+					alquiler.getFechaSalida());
+		}
+	}
 
 }
