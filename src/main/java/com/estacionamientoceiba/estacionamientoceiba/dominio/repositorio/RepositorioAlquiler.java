@@ -34,4 +34,9 @@ public interface RepositorioAlquiler {
 	 * Genera un listado de alquiler
 	 */
 	Collection<Alquiler> listar();
+
+	/**
+	 * Permite buscar un alquiler en especifico, dependiendo la placa
+	 */
+	Alquiler buscarAlquiler(String placa);
 }

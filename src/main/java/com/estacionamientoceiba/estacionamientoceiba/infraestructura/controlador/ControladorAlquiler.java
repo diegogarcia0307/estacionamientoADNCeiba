@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.ComandoAlquiler;
+import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.JsonRespuesta;
 import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.ManejadorCrearAlquilerEstacionamiento;
 import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.ManejadorListarAlquileresEstacionamiento;
 import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.ManejadorSalidaAlquilerEstacionamiento;
@@ -49,5 +50,14 @@ public class ControladorAlquiler {
 	@GetMapping("/alquiler/salida/{placa}")
 	public double salidaAlquiler(@PathVariable String placa) {
 		return this.manejadorSalida.salidaAlquiler(placa);
+	}
+
+	@ApiOperation("busquedaAlquiler")
+	@GetMapping("/alquiler/busqueda/{placa}")
+	public JsonRespuesta buscarAlquiler(@PathVariable String placa) {
+		Alquiler alquiler = this.manejadorListar.buscarAlquiler(placa);
+		return new JsonRespuesta(alquiler.getVehiculo().getPlaca(), alquiler.getVehiculo().getTipo(),
+				alquiler.getFechaIngreso());
+
 	}
 }

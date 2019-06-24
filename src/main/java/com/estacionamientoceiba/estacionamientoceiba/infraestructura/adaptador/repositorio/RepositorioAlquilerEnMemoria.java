@@ -73,16 +73,23 @@ public class RepositorioAlquilerEnMemoria implements RepositorioAlquiler {
 	}
 
 	@Override
-	public void eliminarPlaza(String placa) {
-
+	public Alquiler buscarAlquiler(String placa) {
 		List<Alquiler> lista = new ArrayList<>(listar());
-		Alquiler alquiler;
-
+		Alquiler alquiler = new Alquiler();
 		for (int i = 0; i < lista.size(); i++) {
 			if (lista.get(i).getVehiculo().getPlaca().equalsIgnoreCase(placa)) {
 				alquiler = lista.get(i);
-				alquileres.values().remove(alquiler);
 			}
 		}
+		return alquiler;
+	}
+
+	@Override
+	public void eliminarPlaza(String placa) {
+
+		Alquiler alquiler = buscarAlquiler(placa);
+
+		alquileres.values().remove(alquiler);
+
 	}
 }

@@ -12,7 +12,11 @@ public class ServicioListarAlquilerEstacionamiento {
 		this.repositorioAlquiler = repositorioAlquiler;
 	}
 
+	public Alquiler buscarAlquiler(String placa) {
+		return repositorioAlquiler.buscarAlquiler(placa);
+	}
+
 	public Collection<Alquiler> listar() {
-		return repositorioAlquiler.listar(); 
+		return repositorioAlquiler.listar();
 	}
 }

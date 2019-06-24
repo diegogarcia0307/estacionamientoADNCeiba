@@ -19,4 +19,8 @@ public class ManejadorListarAlquileresEstacionamiento {
 	public Collection<Alquiler> ejecutar() {
 		return this.servicioListarAlquiler.listar();
 	}
+
+	public Alquiler buscarAlquiler(String placa) {
+		return this.servicioListarAlquiler.buscarAlquiler(placa);
+	}
 }
