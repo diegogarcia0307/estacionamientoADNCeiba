@@ -1,7 +1,5 @@
 package com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando;
 
-import java.util.Date;
-
 import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.Vehiculo;
 
 import lombok.AllArgsConstructor;

@@ -25,7 +25,7 @@ public class ValidadorAlquiler {
 
 		placa = placa.toUpperCase();
 
-		if (tipo.equalsIgnoreCase("Carro") && placa.startsWith("A")) {
+		if ("Carro".equalsIgnoreCase(tipo) && placa.startsWith("A")) {
 
 			Calendar diaAux = Calendar.getInstance();
 			diaAux.setTime(dia);

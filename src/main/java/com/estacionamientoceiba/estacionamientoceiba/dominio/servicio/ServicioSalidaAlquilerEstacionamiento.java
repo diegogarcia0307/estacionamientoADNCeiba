@@ -7,7 +7,7 @@ import com.estacionamientoceiba.estacionamientoceiba.dominio.repositorio.Reposit
 
 public class ServicioSalidaAlquilerEstacionamiento {
 
-	private final String NO_EXISTE = "El vehículo ingresado no se encuentra en el parqueadero";
+	private static final String NO_EXISTE = "El vehículo ingresado no se encuentra en el parqueadero";
 
 	private RepositorioAlquiler repositorioAlquiler;
 
@@ -17,7 +17,7 @@ public class ServicioSalidaAlquilerEstacionamiento {
 
 	public double salidaAlquiler(String placa) {
 		verificarExistencia(placa);
-		double pago= calcularPago(repositorioAlquiler.salidaAlquiler(placa));
+		double pago = calcularPago(repositorioAlquiler.salidaAlquiler(placa));
 		repositorioAlquiler.eliminarPlaza(placa);
 		return pago;
 	}

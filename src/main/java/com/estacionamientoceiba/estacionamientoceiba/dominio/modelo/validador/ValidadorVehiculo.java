@@ -33,7 +33,7 @@ public class ValidadorVehiculo {
 	public static void verificarPlaca(String tipo, String placa, Date dia, String mensaje) {
 		placa = placa.toUpperCase();
 
-		if (tipo.equalsIgnoreCase("Carro") && placa.startsWith("A")) {
+		if ("Carro".equalsIgnoreCase(tipo) && placa.startsWith("A")) {
 
 			Calendar diaAux = Calendar.getInstance();
 			diaAux.setTime(dia);

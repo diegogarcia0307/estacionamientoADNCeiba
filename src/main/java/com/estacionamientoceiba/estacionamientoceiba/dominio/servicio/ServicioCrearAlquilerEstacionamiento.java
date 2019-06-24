@@ -13,8 +13,8 @@ import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.Vehiculo;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.repositorio.RepositorioAlquiler;
 
 public class ServicioCrearAlquilerEstacionamiento {
-	private final String PERMANENCIA = "El vehiculo ya se encuentra dentro del parqueadero";
-	private final String NO_HAY_DISPONIBILIDAD = "No hay disponibilidad para el vehiculo que intenta ingresar";
+	private static final String PERMANENCIA = "El vehiculo ya se encuentra dentro del parqueadero";
+	private static final String NO_DISPONIBILIDAD = "No hay disponibilidad para el vehiculo que intenta ingresar";
 	private RepositorioAlquiler repositorioAlquiler;
 
 	public ServicioCrearAlquilerEstacionamiento(RepositorioAlquiler repositorioAlquiler) {
@@ -43,8 +43,8 @@ public class ServicioCrearAlquilerEstacionamiento {
 			}
 		}
 
-		if ((tipo.equalsIgnoreCase("CARRO") && count >= 20) || (tipo.equalsIgnoreCase("MOTO") && count >= 10)) {
-			throw new ExcepcionGenerica(NO_HAY_DISPONIBILIDAD);
+		if (("Carro".equalsIgnoreCase(tipo) && count >= 20) || (("Moto".equalsIgnoreCase(tipo)) && count >= 10)) {
+			throw new ExcepcionGenerica(NO_DISPONIBILIDAD);
 		}
 	}
 
