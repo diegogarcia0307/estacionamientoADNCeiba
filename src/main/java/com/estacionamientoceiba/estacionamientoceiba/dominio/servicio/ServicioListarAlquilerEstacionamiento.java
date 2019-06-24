@@ -5,10 +5,10 @@ import java.util.Collection;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.Alquiler;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.repositorio.RepositorioAlquiler;
 
-public class ServicioListarAlquiler {
+public class ServicioListarAlquilerEstacionamiento {
 	private RepositorioAlquiler repositorioAlquiler;
 
-	public ServicioListarAlquiler(RepositorioAlquiler repositorioAlquiler) {
+	public ServicioListarAlquilerEstacionamiento(RepositorioAlquiler repositorioAlquiler) {
 		this.repositorioAlquiler = repositorioAlquiler;
 	}
 

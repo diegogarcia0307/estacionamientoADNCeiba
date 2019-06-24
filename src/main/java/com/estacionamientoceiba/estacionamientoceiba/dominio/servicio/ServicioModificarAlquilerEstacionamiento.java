@@ -3,11 +3,11 @@ package com.estacionamientoceiba.estacionamientoceiba.dominio.servicio;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.Alquiler;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.repositorio.RepositorioAlquiler;
 
-public class ServicioModificarAlquiler {
+public class ServicioModificarAlquilerEstacionamiento {
 
 	private RepositorioAlquiler repositorioAlquiler;
 
-	public ServicioModificarAlquiler(RepositorioAlquiler repositorioAlquiler) {
+	public ServicioModificarAlquilerEstacionamiento(RepositorioAlquiler repositorioAlquiler) {
 		this.repositorioAlquiler = repositorioAlquiler;
 	}
 
