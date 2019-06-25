@@ -1,7 +1,7 @@
 package com.estacionamientoceiba.estacionamientoceiba.infraestructura;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.json.JSONObject;
@@ -26,7 +26,7 @@ import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejado
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-@FixMethodOrder(MethodSorters.JVM)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ControlerTests {
 
 	@Autowired
@@ -36,22 +36,20 @@ public class ControlerTests {
 	ManejadorListarAlquileresEstacionamiento manejadorListarAlquileresEstacionamiento;
 
 	@Test
-	public void listarTest() throws Exception {
+	public void aListarVacioTest() throws Exception {
 
-		// When
 		final ResultActions result = mvc.perform(get("/apiv1/alquileres").accept(MimeTypeUtils.APPLICATION_JSON_VALUE));
 
-		// Then
-
 		result.andExpect(status().isOk());
-
-		final int expectedSize = 0;
-		result.andExpect(jsonPath("$.length()").value(expectedSize));
+		/*
+		 * final int expectedSize = 0;
+		 * result.andExpect(jsonPath("$.length()").value(expectedSize));
+		 */
 
 	}
 
 	@Test
-	public void registroVehiculoTest() throws Exception {
+	public void bRegistroVehiculoTest() throws Exception {
 		JSONObject vehiculo = new JSONObject();
 		JSONObject aux = new JSONObject();
 
@@ -70,6 +68,24 @@ public class ControlerTests {
 		mvc.perform(MockMvcRequestBuilders.post("/apiv1/alquileres").content(vehiculo.toString())
 				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
 				.andExpect(MockMvcResultMatchers.jsonPath("$.estadoOperacion").exists());
+
+	}
+
+	@Test
+	public void cListarTest() throws Exception {
+
+		mvc.perform(MockMvcRequestBuilders.get("/apiv1/alquileres").accept(MediaType.APPLICATION_JSON)).andDo(print())
+				.andExpect(status().isOk()).andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(1));
+
+	}
+
+	@Test
+	public void dBuscarVehiculoTest() throws Exception {
+
+		mvc.perform(
+				MockMvcRequestBuilders.get("/apiv1/alquileres/{placa}", "DDDE333").accept(MediaType.APPLICATION_JSON))
+				.andDo(print()).andExpect(status().isOk())
+				.andExpect(MockMvcResultMatchers.jsonPath("$.placa").value("DDDE333"));
 
 	}
 
