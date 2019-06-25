@@ -2,6 +2,8 @@ package com.estacionamientoceiba.estacionamientoceiba.infraestructura.controlado
 
 import java.util.Collection;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.ComandoAlquiler;
 import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.JsonRespuesta;
+import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.JsonRespuestaCrear;
 import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.ManejadorCrearAlquilerEstacionamiento;
 import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.ManejadorListarAlquileresEstacionamiento;
 import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.ManejadorSalidaAlquilerEstacionamiento;
@@ -19,6 +22,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
+@CrossOrigin(origins = "*")
 @Api(tags = { "Controlador alquiler" })
 public class ControladorAlquiler {
 
@@ -26,6 +30,7 @@ public class ControladorAlquiler {
 	private final ManejadorListarAlquileresEstacionamiento manejadorListar;
 	private final ManejadorSalidaAlquilerEstacionamiento manejadorSalida;
 
+	@Autowired
 	public ControladorAlquiler(ManejadorCrearAlquilerEstacionamiento manejadorCrear,
 			ManejadorListarAlquileresEstacionamiento manejadorListar,
 			ManejadorSalidaAlquilerEstacionamiento manejadorSalida) {
@@ -42,7 +47,7 @@ public class ControladorAlquiler {
 
 	@ApiOperation("crearAlquiler")
 	@PostMapping("/alquiler/crear")
-	public boolean crearAlquiler(@RequestBody ComandoAlquiler comandoIngresado) {
+	public JsonRespuestaCrear crearAlquiler(@RequestBody ComandoAlquiler comandoIngresado) {
 		return this.manejadorCrear.ejecutar(comandoIngresado);
 	}
 

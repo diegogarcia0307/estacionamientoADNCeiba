@@ -12,6 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.stereotype.Repository;
 
+import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.JsonRespuestaCrear;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.Alquiler;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.repositorio.RepositorioAlquiler;
 
@@ -25,9 +26,9 @@ public class RepositorioAlquilerEnMemoria implements RepositorioAlquiler {
 	}
 
 	@Override
-	public boolean crear(Alquiler alquiler) {
+	public JsonRespuestaCrear crear(Alquiler alquiler) {
 		alquileres.put(UUID.randomUUID().toString(), alquiler);
-		return true;
+		return new JsonRespuestaCrear(alquiler.getVehiculo().getPlaca(), alquiler.getVehiculo().getTipo(), true);
 	}
 
 	@Override

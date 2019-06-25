@@ -7,6 +7,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.JsonRespuesta;
+import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.JsonRespuestaCrear;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.excepcion.ExcepcionGenerica;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.Alquiler;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.Vehiculo;
@@ -21,7 +23,7 @@ public class ServicioCrearAlquilerEstacionamiento {
 		this.repositorioAlquiler = repositorioAlquiler;
 	}
 
-	public boolean ejecutar(Vehiculo vehiculo) {
+	public JsonRespuestaCrear ejecutar(Vehiculo vehiculo) {
 		verificarDisponibilidad(vehiculo.getTipo());
 		verificarPermanencia(vehiculo);
 		Alquiler alquiler = new Alquiler(new Vehiculo(vehiculo), obtenerHoraIngreso());
