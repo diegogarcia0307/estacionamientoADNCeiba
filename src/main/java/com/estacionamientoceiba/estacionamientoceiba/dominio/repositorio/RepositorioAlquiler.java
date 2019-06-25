@@ -2,7 +2,6 @@ package com.estacionamientoceiba.estacionamientoceiba.dominio.repositorio;
 
 import java.util.Collection;
 
-import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.JsonRespuesta;
 import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.JsonRespuestaCrear;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.Alquiler;
 

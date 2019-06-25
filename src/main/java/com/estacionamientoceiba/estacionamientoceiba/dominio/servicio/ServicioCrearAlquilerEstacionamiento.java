@@ -7,7 +7,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.JsonRespuesta;
 import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.JsonRespuestaCrear;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.excepcion.ExcepcionGenerica;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.Alquiler;

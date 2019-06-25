@@ -6,13 +6,16 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
 import com.estacionamientoceiba.estacionamientoceiba.dominio.databuilder.VehiculoDataBuilder;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.excepcion.ExcepcionGenerica;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.Vehiculo;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.validador.ValidadorAlquiler;
 
+@FixMethodOrder(MethodSorters.JVM)
 public class DominioTests {
 
 	@Test
@@ -150,13 +153,9 @@ public class DominioTests {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 		Date fecha = sdf.parse("25-06-2019");
 
-		String esperado = "No puede ingresar";
-
 		// Act
 		String actual = validador.verificarPlaca("Carro", "AR43S", fecha);
 
-		// Assert
-		assert (actual.equalsIgnoreCase(esperado));
 	}
 
 	@Test
