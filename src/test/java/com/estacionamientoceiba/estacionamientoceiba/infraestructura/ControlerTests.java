@@ -39,15 +39,15 @@ public class ControlerTests {
 	public void listarTest() throws Exception {
 
 		// When
-		final ResultActions result = mvc.perform(get("/alquiler/listar").accept(MimeTypeUtils.APPLICATION_JSON_VALUE));
+		final ResultActions result = mvc.perform(get("/apiv1/alquileres").accept(MimeTypeUtils.APPLICATION_JSON_VALUE));
 
 		// Then
 
 		result.andExpect(status().isOk());
-		/*
-		 * final int expectedSize = 0;
-		 * result.andExpect(jsonPath("$.length()").value(expectedSize));
-		 */
+
+		final int expectedSize = 0;
+		result.andExpect(jsonPath("$.length()").value(expectedSize));
+
 	}
 
 	@Test
@@ -67,7 +67,7 @@ public class ControlerTests {
 		respuestaEsperada.put("tipoVehiculo", "CARRO");
 		respuestaEsperada.put("estadoOperacion", true);
 
-		mvc.perform(MockMvcRequestBuilders.post("/alquiler/crear").content(vehiculo.toString())
+		mvc.perform(MockMvcRequestBuilders.post("/apiv1/alquileres").content(vehiculo.toString())
 				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
 				.andExpect(MockMvcResultMatchers.jsonPath("$.estadoOperacion").exists());
 

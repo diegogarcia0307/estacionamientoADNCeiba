@@ -66,10 +66,11 @@ public class ValidadorAlquiler {
 
 			if (vehiculo.getCilindraje() > 500) {
 				valorPagar += 2000;
+				valorPagar = horasConsumidas == 0 ? (valorPagar + 500) : valorPagar;
 			}
 		}
 
-		return valorPagar == 0 ? 500 + 2000 : valorPagar;
+		return valorPagar == 0 ? 500 : valorPagar;
 	}
 
 	public static double calcularPagoCarros(Vehiculo vehiculo, Date fechaIngreso, Date fechaSalida) {
