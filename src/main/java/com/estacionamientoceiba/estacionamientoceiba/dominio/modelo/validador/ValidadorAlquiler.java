@@ -69,7 +69,7 @@ public class ValidadorAlquiler {
 			}
 		}
 
-		return valorPagar == 0 ? 500 : valorPagar + 500;
+		return valorPagar == 0 ? 500 + 2000 : valorPagar;
 	}
 
 	public static double calcularPagoCarros(Vehiculo vehiculo, Date fechaIngreso, Date fechaSalida) {

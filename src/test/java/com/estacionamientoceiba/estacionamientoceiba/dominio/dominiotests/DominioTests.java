@@ -1,6 +1,6 @@
 package com.estacionamientoceiba.estacionamientoceiba.dominio.dominiotests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
