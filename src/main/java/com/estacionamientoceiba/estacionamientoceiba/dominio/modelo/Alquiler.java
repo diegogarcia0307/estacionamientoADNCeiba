@@ -7,8 +7,6 @@ import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.validador.Va
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
 public class Alquiler {
 
 	private Vehiculo vehiculo;
@@ -43,6 +41,30 @@ public class Alquiler {
 
 		this.vehiculo = vehiculo;
 		this.fechaIngreso = fechaIngreso;
+	}
+
+	public Vehiculo getVehiculo() {
+		return vehiculo;
+	}
+
+	public Date getFechaIngreso() {
+		return fechaIngreso;
+	}
+
+	public Date getFechaSalida() {
+		return fechaSalida;
+	}
+
+	public void setFechaSalida(Date fechaSalida) {
+		this.fechaSalida = fechaSalida;
+	}
+
+	public String getPuesto() {
+		return puesto;
+	}
+
+	public double getPago() {
+		return pago;
 	}
 
 }
