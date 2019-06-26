@@ -7,6 +7,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.JsonRespuestaCrear;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.excepcion.ExcepcionGenerica;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.Alquiler;
@@ -17,6 +20,8 @@ public class ServicioCrearAlquilerEstacionamiento {
 	private static final String PERMANENCIA = "El vehiculo ya se encuentra dentro del parqueadero";
 	private static final String NO_DISPONIBILIDAD = "No hay disponibilidad para el vehiculo que intenta ingresar";
 	private RepositorioAlquiler repositorioAlquiler;
+
+	private static final Logger LOG = LoggerFactory.getLogger(ServicioCrearAlquilerEstacionamiento.class);
 
 	public ServicioCrearAlquilerEstacionamiento(RepositorioAlquiler repositorioAlquiler) {
 		this.repositorioAlquiler = repositorioAlquiler;
@@ -59,6 +64,7 @@ public class ServicioCrearAlquilerEstacionamiento {
 		try {
 			date = sp.parse(strDate);
 		} catch (ParseException e) {
+			LOG.error(e.getMessage(), e);
 		}
 
 		return date;
