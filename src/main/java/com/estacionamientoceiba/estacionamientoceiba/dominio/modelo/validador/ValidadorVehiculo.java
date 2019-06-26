@@ -4,10 +4,7 @@ import com.estacionamientoceiba.estacionamientoceiba.dominio.excepcion.Excepcion
 import com.estacionamientoceiba.estacionamientoceiba.dominio.excepcion.ExcepcionPlacaObligatoria;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.excepcion.ExcepcionTipoVehiculo;
 
-public class ValidadorVehiculo {
-
-	public ValidadorVehiculo() {
-	}
+public final class ValidadorVehiculo {
 
 	private static final String PLACA_OBLIGATORIA = "La placa es obligatoria";
 	private static final String TIPO_VEHICULO_OBLIGATORIO = "El tipo de vehiculo es obligatorio";
