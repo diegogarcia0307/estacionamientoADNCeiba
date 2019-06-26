@@ -4,10 +4,6 @@ import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.validador.Va
 
 public class Vehiculo {
 
-	private static final String PLACA_OBLIGATORIA = "La placa es obligatoria";
-	private static final String TIPO_VEHICULO_OBLIGATORIO = "El tipo de vehiculo es obligatorio";
-	private static final String CILINDRAJE_CORRECTO = "El valor del cilindraje es obligatorio y su valor debe ser positivo";
-
 	private String placa;
 	private String marca;
 	private String color;
@@ -20,9 +16,9 @@ public class Vehiculo {
 
 	public Vehiculo(String tipo, String placa, double cilindraje, String marca, String color) {
 
-		ValidadorVehiculo.validarTipoVehiculo(tipo, TIPO_VEHICULO_OBLIGATORIO);
-		ValidadorVehiculo.validarPlaca(placa, PLACA_OBLIGATORIA);
-		ValidadorVehiculo.validarCilindraje(cilindraje, CILINDRAJE_CORRECTO);
+		ValidadorVehiculo.validarTipoVehiculo(tipo);
+		ValidadorVehiculo.validarPlaca(placa);
+		ValidadorVehiculo.validarCilindraje(cilindraje);
 
 		this.tipo = tipo;
 		this.placa = placa;
@@ -33,9 +29,9 @@ public class Vehiculo {
 
 	public Vehiculo(Vehiculo vehiculo) {
 
-		ValidadorVehiculo.validarTipoVehiculo(vehiculo.getTipo(), TIPO_VEHICULO_OBLIGATORIO);
-		ValidadorVehiculo.validarPlaca(vehiculo.getPlaca(), PLACA_OBLIGATORIA);
-		ValidadorVehiculo.validarCilindraje(vehiculo.getCilindraje(), CILINDRAJE_CORRECTO);
+		ValidadorVehiculo.validarTipoVehiculo(vehiculo.getTipo());
+		ValidadorVehiculo.validarPlaca(vehiculo.getPlaca());
+		ValidadorVehiculo.validarCilindraje(vehiculo.getCilindraje());
 
 		this.tipo = vehiculo.getTipo().toUpperCase();
 		this.placa = vehiculo.getPlaca().toUpperCase();
