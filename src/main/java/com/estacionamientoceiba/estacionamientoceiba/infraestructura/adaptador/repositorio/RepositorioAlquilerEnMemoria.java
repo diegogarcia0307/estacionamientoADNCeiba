@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.JsonRespuestaCrear;
@@ -20,6 +22,7 @@ import com.estacionamientoceiba.estacionamientoceiba.dominio.repositorio.Reposit
 public class RepositorioAlquilerEnMemoria implements RepositorioAlquiler {
 
 	private static ConcurrentHashMap<String, Alquiler> alquileres;
+	private static final Logger LOG = LoggerFactory.getLogger(RepositorioAlquilerEnMemoria.class);
 
 	static {
 		alquileres = new ConcurrentHashMap<>();
@@ -52,6 +55,7 @@ public class RepositorioAlquilerEnMemoria implements RepositorioAlquiler {
 
 					alquilerSalir = alquiler;
 				} catch (ParseException e) {
+					LOG.error(e.getMessage(), e);
 				}
 
 			}

@@ -6,6 +6,9 @@ import com.estacionamientoceiba.estacionamientoceiba.dominio.excepcion.Excepcion
 
 public class ValidadorVehiculo {
 
+	private ValidadorVehiculo() {
+	}
+
 	public static void validarPlaca(Object objeto, String mensaje) {
 		if (objeto == null || ((String) objeto).isEmpty()) {
 			throw new ExcepcionPlacaObligatoria(mensaje);
