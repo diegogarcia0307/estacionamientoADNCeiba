@@ -19,6 +19,8 @@ import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.validador.Va
 public class DominioTests {
 
 	private final String FORMATO_FECHA = "HH:mm:ss dd-MM-yyyy";
+	private final String CARRO = "CARRO";
+	private final String MOTO = "MOTO";
 
 	@Test
 	public void calcularPagoMotoCilindrajeMayorTest() throws ParseException {
@@ -26,7 +28,7 @@ public class DominioTests {
 		ValidadorAlquiler validador = new ValidadorAlquiler();
 
 		VehiculoDataBuilder buildVehiculo = new VehiculoDataBuilder();
-		Vehiculo vehiculo = buildVehiculo.withTipo("Moto").withCilindraje(600).withColor("RED").withMarca("BAJAJ")
+		Vehiculo vehiculo = buildVehiculo.withTipo(MOTO).withCilindraje(600).withColor("RED").withMarca("BAJAJ")
 				.withPlaca("WEARV23").build();
 
 		SimpleDateFormat sdf = new SimpleDateFormat(FORMATO_FECHA);
@@ -48,8 +50,8 @@ public class DominioTests {
 		ValidadorAlquiler validador = new ValidadorAlquiler();
 
 		VehiculoDataBuilder buildVehiculo = new VehiculoDataBuilder();
-		Vehiculo vehiculo = buildVehiculo.withTipo("Moto").withCilindraje(120).withColor("RED").withMarca("SUZUKY")
-				.withPlaca("SRD36D").build();
+		Vehiculo vehiculo = buildVehiculo.withTipo(MOTO).withCilindraje(120).withColor("RED").withMarca("SUZUKY")
+				.withPlaca("8BHB4").build();
 
 		SimpleDateFormat sdf = new SimpleDateFormat(FORMATO_FECHA);
 		Date fechaIngreso = sdf.parse("5:00:00 23-06-2019");
@@ -70,8 +72,8 @@ public class DominioTests {
 		ValidadorAlquiler validador = new ValidadorAlquiler();
 
 		VehiculoDataBuilder buildVehiculo = new VehiculoDataBuilder();
-		Vehiculo vehiculo = buildVehiculo.withTipo("Moto").withCilindraje(120).withColor("RED").withMarca("SUZUKY")
-				.withPlaca("SRD36D").build();
+		Vehiculo vehiculo = buildVehiculo.withTipo(MOTO).withCilindraje(120).withColor("RED").withMarca("SUZUKY")
+				.withPlaca("BH789S").build();
 
 		SimpleDateFormat sdf = new SimpleDateFormat(FORMATO_FECHA);
 		Date fechaIngreso = sdf.parse("5:00:00 23-06-2019");
@@ -92,8 +94,8 @@ public class DominioTests {
 		ValidadorAlquiler validador = new ValidadorAlquiler();
 
 		VehiculoDataBuilder buildVehiculo = new VehiculoDataBuilder();
-		Vehiculo vehiculo = buildVehiculo.withTipo("Carro").withCilindraje(120).withColor("RED").withMarca("TOYOTA")
-				.withPlaca("SRD36D").build();
+		Vehiculo vehiculo = buildVehiculo.withTipo(CARRO).withCilindraje(120).withColor("RED").withMarca("TOYOTA")
+				.withPlaca("1QSWA2").build();
 
 		SimpleDateFormat sdf = new SimpleDateFormat(FORMATO_FECHA);
 		Date fechaIngreso = sdf.parse("7:30:00 23-06-2019");
@@ -114,7 +116,7 @@ public class DominioTests {
 		ValidadorAlquiler validador = new ValidadorAlquiler();
 
 		VehiculoDataBuilder buildVehiculo = new VehiculoDataBuilder();
-		Vehiculo vehiculo = buildVehiculo.withTipo("Carro").withCilindraje(120).withColor("RED").withMarca("TOYOTA")
+		Vehiculo vehiculo = buildVehiculo.withTipo(CARRO).withCilindraje(120).withColor("RED").withMarca("TOYOTA")
 				.withPlaca("SRD36D").build();
 
 		SimpleDateFormat sdf = new SimpleDateFormat(FORMATO_FECHA);
@@ -141,7 +143,7 @@ public class DominioTests {
 		String esperado = "Puede ingresar";
 
 		// Act
-		String actual = validador.verificarPlaca("Carro", "AR43S", fecha);
+		String actual = validador.verificarPlaca(CARRO, "AR43S", fecha);
 
 		// Assert
 		assert (actual.equalsIgnoreCase(esperado));
@@ -156,7 +158,7 @@ public class DominioTests {
 		Date fecha = sdf.parse("15:05:32 25-06-2019");
 
 		// Act
-		validador.verificarPlaca("Carro", "AR43S", fecha);
+		validador.verificarPlaca(CARRO, "AR43S", fecha);
 
 	}
 
@@ -164,8 +166,8 @@ public class DominioTests {
 	public void verificarCilindrajeMenorMotoTest() {
 		// Arrange
 		VehiculoDataBuilder buildVehiculo = new VehiculoDataBuilder();
-		Vehiculo vehiculo = buildVehiculo.withTipo("MOTO").withCilindraje(150).withColor("GRAY").withMarca("HONDA")
-				.withPlaca("DJNHR").build();
+		Vehiculo vehiculo = buildVehiculo.withTipo(MOTO).withCilindraje(150).withColor("GRAY").withMarca("HONDA")
+				.withPlaca("SDQW67").build();
 
 		ValidadorAlquiler validador = new ValidadorAlquiler();
 		// Act and Assert
@@ -176,7 +178,7 @@ public class DominioTests {
 	public void verificarCilindrajeMayorMotoTest() {
 		// Arrange
 		VehiculoDataBuilder buildVehiculo = new VehiculoDataBuilder();
-		Vehiculo vehiculo = buildVehiculo.withTipo("MOTO").withCilindraje(600).withColor("GRAY").withMarca("HONDA")
+		Vehiculo vehiculo = buildVehiculo.withTipo(MOTO).withCilindraje(600).withColor("GRAY").withMarca("AUTECO")
 				.withPlaca("DJNHR").build();
 
 		ValidadorAlquiler validador = new ValidadorAlquiler();

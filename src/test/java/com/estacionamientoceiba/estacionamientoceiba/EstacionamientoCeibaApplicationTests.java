@@ -9,6 +9,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class EstacionamientoCeibaApplicationTests {
 
+	/**
+	 * Este metodo queda vacio, porque es el encargado de levantar todos los
+	 * archivos de tests
+	 */
 	@Test
 	public void contextLoads() {
 	}
