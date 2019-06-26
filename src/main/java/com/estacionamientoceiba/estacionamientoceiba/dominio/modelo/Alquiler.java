@@ -4,9 +4,6 @@ import java.util.Date;
 
 import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.validador.ValidadorAlquiler;
 
-import lombok.Getter;
-import lombok.Setter;
-
 public class Alquiler {
 
 	private Vehiculo vehiculo;

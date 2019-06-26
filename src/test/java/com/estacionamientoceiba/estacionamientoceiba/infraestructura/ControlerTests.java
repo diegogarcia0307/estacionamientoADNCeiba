@@ -2,6 +2,7 @@ package com.estacionamientoceiba.estacionamientoceiba.infraestructura;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.json.JSONObject;
@@ -37,27 +38,32 @@ public class ControlerTests {
 	ManejadorListarAlquileresEstacionamiento manejadorListarAlquileresEstacionamiento;
 
 	private final String URL = "/apiv1/alquileres/";
-	private final String placa = "DDDE333";
-	private final String carro = "CARRO";
+	private final String PLACACARRO = "DDDE333";
+	private final String PLACAMOTOMENOR = "23DRSG";
+	private final String PLACAMOTOMAYOR = "SW342D";
+	private final String CARRO = "CARRO";
+	private final String MOTO = "MOTO";
 
 	@Test
 	public void aListarVacioTest() throws Exception {
 
 		final ResultActions result = mvc.perform(get("/apiv1/alquileres").accept(MimeTypeUtils.APPLICATION_JSON_VALUE));
 
+		final int expectedSize = 0;
 		result.andExpect(status().isOk());
+		result.andExpect(jsonPath("$.length()").value(expectedSize));
 
 	}
 
 	@Test
-	public void bRegistroVehiculoTest() throws Exception {
+	public void bRegistroCarroTest() throws Exception {
 		JSONObject vehiculo = new JSONObject();
 		JSONObject aux = new JSONObject();
 
-		aux.put("placa", placa);
+		aux.put("placa", PLACACARRO);
 		aux.put("marca", "NISSAN");
 		aux.put("color", "RED");
-		aux.put("tipo", carro);
+		aux.put("tipo", CARRO);
 		aux.put("cilindraje", 0);
 		vehiculo.put("vehiculo", aux);
 
@@ -68,34 +74,60 @@ public class ControlerTests {
 	}
 
 	@Test
-	public void cListarTest() throws Exception {
+	public void cRegistroMotoCilindrajeMenorTest() throws Exception {
+		JSONObject vehiculo = new JSONObject();
+		JSONObject aux = new JSONObject();
+
+		aux.put("placa", PLACAMOTOMENOR);
+		aux.put("tipo", MOTO);
+		aux.put("cilindraje", 120);
+		vehiculo.put("vehiculo", aux);
+
+		mvc.perform(MockMvcRequestBuilders.post(URL).content(vehiculo.toString())
+				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
+				.andExpect(MockMvcResultMatchers.jsonPath("$.estadoOperacion").exists());
+
+	}
+
+	@Test
+	public void dRegistroMotoCilindrajeMayorTest() throws Exception {
+		JSONObject vehiculo = new JSONObject();
+		JSONObject aux = new JSONObject();
+
+		aux.put("placa", PLACAMOTOMAYOR);
+		aux.put("tipo", MOTO);
+		aux.put("cilindraje", 700);
+		vehiculo.put("vehiculo", aux);
+
+		mvc.perform(MockMvcRequestBuilders.post(URL).content(vehiculo.toString())
+				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
+				.andExpect(MockMvcResultMatchers.jsonPath("$.estadoOperacion").exists());
+
+	}
+
+	@Test
+	public void eListarTest() throws Exception {
 
 		mvc.perform(MockMvcRequestBuilders.get(URL).accept(MediaType.APPLICATION_JSON)).andDo(print())
-				.andExpect(status().isOk()).andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(1));
+				.andExpect(status().isOk()).andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(3));
 
 	}
 
 	@Test
-	public void dBuscarVehiculoTest() throws Exception {
+	public void fBuscarCarroTest() throws Exception {
 
-		mvc.perform(MockMvcRequestBuilders.get(URL + "{placa}", placa).accept(MediaType.APPLICATION_JSON))
+		mvc.perform(MockMvcRequestBuilders.get(URL + "{placa}", PLACACARRO).accept(MediaType.APPLICATION_JSON))
 				.andDo(print()).andExpect(status().isOk())
-				.andExpect(MockMvcResultMatchers.jsonPath("$.placa").value(placa));
+				.andExpect(MockMvcResultMatchers.jsonPath("$.placa").value(PLACACARRO));
 
-	}
-
-	@Test
-	public void fDarSalidaVehiculoTest() throws Exception {
-		mvc.perform(MockMvcRequestBuilders.put(URL + "{placa}", placa).accept(MediaType.APPLICATION_JSON))
-				.andExpect(status().isOk()).andExpect(MockMvcResultMatchers.jsonPath("$.pago").exists());
 	}
 
 	@Test(expected = NestedServletException.class)
-	public void eIngresarVehiculoExistente() throws Exception {
+	public void gIngresarCarroExistente() throws Exception {
 		JSONObject vehiculo = new JSONObject();
 		JSONObject vehiculoAux = new JSONObject();
 
-		vehiculoAux.put("placa", placa);
+		vehiculoAux.put("placa", PLACACARRO);
 		vehiculoAux.put("marca", "HONDA");
 		vehiculoAux.put("color", "GREEN");
 		vehiculoAux.put("tipo", "MOTO");
@@ -103,8 +135,30 @@ public class ControlerTests {
 		vehiculo.put("vehiculo", vehiculoAux);
 
 		mvc.perform(MockMvcRequestBuilders.post(URL).content(vehiculo.toString())
-				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
-				.andExpect(MockMvcResultMatchers.jsonPath("$.estadoOperacion").doesNotExist());
+				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON));
+	}
+
+	@Test
+	public void hDarSalidaCarroTest() throws Exception {
+		mvc.perform(MockMvcRequestBuilders.put(URL + "{placa}", PLACACARRO).accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk()).andExpect(MockMvcResultMatchers.jsonPath("$.pago").exists());
+	}
+
+	@Test
+	public void iDarSalidaMotoCilindrajeMenorTest() throws Exception {
+		mvc.perform(MockMvcRequestBuilders.put(URL + "{placa}", PLACAMOTOMENOR).accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk()).andExpect(MockMvcResultMatchers.jsonPath("$.pago").exists());
+	}
+
+	@Test
+	public void jDarSalidaMotoCilindrajeMayorTest() throws Exception {
+		mvc.perform(MockMvcRequestBuilders.put(URL + "{placa}", PLACAMOTOMAYOR).accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk()).andExpect(MockMvcResultMatchers.jsonPath("$.pago").exists());
+	}
+
+	@Test(expected = NestedServletException.class)
+	public void kDarSalidaVehiculoNoIngresadoTest() throws Exception {
+		mvc.perform(MockMvcRequestBuilders.put(URL + "{placa}", "DEFECTO").accept(MediaType.APPLICATION_JSON));
 	}
 
 }
