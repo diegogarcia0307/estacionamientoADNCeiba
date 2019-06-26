@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.ComandoAlquiler;
 import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.JsonRespuesta;
 import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.JsonRespuestaCrear;
+import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.JsonRespuestaPago;
 import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.ManejadorCrearAlquilerEstacionamiento;
 import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.ManejadorListarAlquileresEstacionamiento;
 import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.ManejadorSalidaAlquilerEstacionamiento;
@@ -56,7 +57,7 @@ public class ControladorAlquiler {
 
 	@ApiOperation("salidaAlquiler")
 	@PutMapping("/{placa}")
-	public double salidaAlquiler(@PathVariable String placa) {
+	public JsonRespuestaPago salidaAlquiler(@PathVariable String placa) {
 		return this.manejadorSalida.salidaAlquiler(placa);
 	}
 

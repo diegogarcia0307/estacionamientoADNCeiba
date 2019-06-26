@@ -13,7 +13,7 @@ public class ManejadorSalidaAlquilerEstacionamiento {
 		this.servicioSalida = servicio;
 	}
 
-	public double salidaAlquiler(String placa) {
+	public JsonRespuestaPago salidaAlquiler(String placa) {
 		return servicioSalida.salidaAlquiler(placa);
 	}
 

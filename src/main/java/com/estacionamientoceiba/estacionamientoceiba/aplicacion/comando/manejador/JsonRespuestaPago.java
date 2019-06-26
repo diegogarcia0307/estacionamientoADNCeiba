@@ -5,9 +5,7 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class JsonRespuestaCrear {
+public class JsonRespuestaPago {
 
-	String placa;
-	String tipoVehiculo;
-	boolean estadoOperacion;
+	private double pago;
 }

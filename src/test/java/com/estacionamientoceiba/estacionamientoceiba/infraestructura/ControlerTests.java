@@ -89,4 +89,11 @@ public class ControlerTests {
 
 	}
 
+	@Test
+	public void eDarSalidaVehiculoTest() throws Exception {
+		mvc.perform(
+				MockMvcRequestBuilders.put("/apiv1/alquileres/{placa}", "DDDE333").accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk()).andExpect(MockMvcResultMatchers.jsonPath("$.pago").exists());
+	}
+
 }

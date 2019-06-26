@@ -1,5 +1,6 @@
 package com.estacionamientoceiba.estacionamientoceiba.dominio.servicio;
 
+import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.JsonRespuestaPago;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.excepcion.ExcepcionGenerica;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.Alquiler;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.validador.ValidadorAlquiler;
@@ -15,9 +16,9 @@ public class ServicioSalidaAlquilerEstacionamiento {
 		this.repositorioAlquiler = repositorioAlquiler;
 	}
 
-	public double salidaAlquiler(String placa) {
+	public JsonRespuestaPago salidaAlquiler(String placa) {
 		verificarExistencia(placa);
-		double pago = calcularPago(repositorioAlquiler.salidaAlquiler(placa));
+		JsonRespuestaPago pago = new JsonRespuestaPago(calcularPago(repositorioAlquiler.salidaAlquiler(placa)));
 		repositorioAlquiler.eliminarPlaza(placa);
 		return pago;
 	}
