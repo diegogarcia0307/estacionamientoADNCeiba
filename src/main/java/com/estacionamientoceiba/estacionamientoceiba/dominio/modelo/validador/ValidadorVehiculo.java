@@ -1,10 +1,6 @@
 package com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.validador;
 
-import java.util.Calendar;
-import java.util.Date;
-
 import com.estacionamientoceiba.estacionamientoceiba.dominio.excepcion.ExcepcionCilindrajeCorrecto;
-import com.estacionamientoceiba.estacionamientoceiba.dominio.excepcion.ExcepcionGenerica;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.excepcion.ExcepcionPlacaObligatoria;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.excepcion.ExcepcionTipoVehiculo;
 
@@ -30,20 +26,4 @@ public class ValidadorVehiculo {
 		}
 	}
 
-	public static void verificarPlaca(String tipo, String placa, Date dia, String mensaje) {
-		placa = placa.toUpperCase();
-
-		if ("Carro".equalsIgnoreCase(tipo) && placa.startsWith("A")) {
-
-			Calendar diaAux = Calendar.getInstance();
-			diaAux.setTime(dia);
-
-			int diaSemana = diaAux.get(Calendar.DAY_OF_WEEK);
-
-			if (!(diaSemana == Calendar.MONDAY || diaSemana == Calendar.SUNDAY)) {
-				throw new ExcepcionGenerica(mensaje);
-			}
-
-		}
-	}
 }
