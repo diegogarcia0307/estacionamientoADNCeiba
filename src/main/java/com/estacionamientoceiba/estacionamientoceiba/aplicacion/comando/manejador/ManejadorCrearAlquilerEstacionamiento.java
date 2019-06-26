@@ -14,7 +14,7 @@ public class ManejadorCrearAlquilerEstacionamiento {
 		servicioCrearAlquiler = servicio;
 	}
 
-	public JsonRespuestaCrear ejecutar(ComandoAlquiler comando) {
+	public JsonRespuestaCrear ejecutar(ComandoAlquiler comando)  {
 		return this.servicioCrearAlquiler.ejecutar(comando.getVehiculo());
 	}
 }

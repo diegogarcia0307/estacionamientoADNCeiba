@@ -60,6 +60,7 @@ public class ServicioCrearAlquilerEstacionamiento {
 			date = sp.parse(strDate);
 		} catch (ParseException e) {
 		}
+
 		return date;
 	}
 }
