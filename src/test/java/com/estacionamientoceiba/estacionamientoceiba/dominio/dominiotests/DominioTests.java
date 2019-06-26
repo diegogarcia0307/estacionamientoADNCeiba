@@ -158,19 +158,6 @@ public class DominioTests {
 
 	}
 
-	@Test(expected = ExcepcionGenerica.class)
-	public void verificarPlacaPermitiDaSiempreTest() throws ParseException {
-		// Arrange
-		ValidadorAlquiler validador = new ValidadorAlquiler();
-
-		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-		Date fecha = sdf.parse("25-06-2019");
-
-		// Act
-		String actual = validador.verificarPlaca("Carro", "B3ES4D", fecha);
-
-	}
-
 	@Test
 	public void verificarCilindrajeMenorMotoTest() {
 		// Arrange
