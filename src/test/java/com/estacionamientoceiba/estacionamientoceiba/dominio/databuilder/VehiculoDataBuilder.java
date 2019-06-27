@@ -7,11 +7,12 @@ public class VehiculoDataBuilder {
 	private String placa;
 	private String marca;
 	private String color;
-	private String tipo;
+	private int tipo;
 	private double cilindraje;
 
 	public VehiculoDataBuilder() {
-		placa = marca = tipo = color = "<DEFECTO>";
+		placa = marca = color = "<DEFECTO>";
+		tipo = 0;
 	}
 
 	public VehiculoDataBuilder withPlaca(String placa) {
@@ -29,7 +30,7 @@ public class VehiculoDataBuilder {
 		return this;
 	}
 
-	public VehiculoDataBuilder withTipo(String tipo) {
+	public VehiculoDataBuilder withTipo(int tipo) {
 		this.tipo = tipo;
 		return this;
 	}

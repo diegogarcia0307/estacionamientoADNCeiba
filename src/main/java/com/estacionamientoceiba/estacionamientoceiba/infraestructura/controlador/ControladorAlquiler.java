@@ -49,19 +49,19 @@ public class ControladorAlquiler {
 		return this.manejadorListar.ejecutar();
 	}
 
-	@ApiOperation("crearAlquiler")
+	@ApiOperation("crear")
 	@PostMapping
 	public JsonRespuestaCrear crearAlquiler(@RequestBody ComandoAlquiler comandoIngresado) {
 		return this.manejadorCrear.ejecutar(comandoIngresado);
 	}
 
-	@ApiOperation("salidaAlquiler")
+	@ApiOperation("salida")
 	@PutMapping("/{placa}")
 	public JsonRespuestaPago salidaAlquiler(@PathVariable String placa) {
 		return this.manejadorSalida.salidaAlquiler(placa);
 	}
 
-	@ApiOperation("busquedaAlquiler")
+	@ApiOperation("busqueda")
 	@GetMapping("/{placa}")
 	public JsonRespuesta buscarAlquiler(@PathVariable String placa) {
 		Alquiler alquiler = this.manejadorListar.buscarAlquiler(placa);

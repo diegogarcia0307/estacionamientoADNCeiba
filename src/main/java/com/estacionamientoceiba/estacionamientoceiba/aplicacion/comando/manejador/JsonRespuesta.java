@@ -9,6 +9,6 @@ import lombok.Getter;
 @Getter
 public class JsonRespuesta {
 	String placa;
-	String tipoVehiculo;
+	int tipoVehiculo;
 	Date fechaIngreso;
 }

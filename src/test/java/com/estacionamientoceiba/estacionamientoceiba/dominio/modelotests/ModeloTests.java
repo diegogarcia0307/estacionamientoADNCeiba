@@ -13,13 +13,16 @@ import com.estacionamientoceiba.estacionamientoceiba.dominio.excepcion.Excepcion
 
 public class ModeloTests {
 
+	private final int CARRO = 1;
+	private final int MOTO = 2;
+
 	@Test(expected = ExcepcionPlacaObligatoria.class)
 	public void verificarPlacaNulaVehiculoTest() {
 		// Arrange
 		VehiculoDataBuilder buildVehiculo = new VehiculoDataBuilder();
 
 		// Act - Assert
-		buildVehiculo.withPlaca(null).withCilindraje(200).withColor("FUCSIA").withTipo("MOTO").build();
+		buildVehiculo.withPlaca(null).withCilindraje(200).withColor("FUCSIA").withTipo(MOTO).build();
 	}
 
 	@Test(expected = ExcepcionPlacaObligatoria.class)
@@ -28,7 +31,7 @@ public class ModeloTests {
 		VehiculoDataBuilder buildVehiculo = new VehiculoDataBuilder();
 
 		// Act - Assert
-		buildVehiculo.withPlaca("").withCilindraje(200).withColor("YELLOW").withTipo("CARRO").build();
+		buildVehiculo.withPlaca("").withCilindraje(200).withColor("YELLOW").withTipo(CARRO).build();
 	}
 
 	@Test(expected = ExcepcionCilindrajeCorrecto.class)
@@ -37,7 +40,7 @@ public class ModeloTests {
 		VehiculoDataBuilder buildVehiculo = new VehiculoDataBuilder();
 
 		// Act - Assert
-		buildVehiculo.withCilindraje(-10).withColor("RED").withMarca("AKT").withTipo("CARRO").build();
+		buildVehiculo.withCilindraje(-10).withColor("RED").withMarca("AKT").withTipo(CARRO).build();
 	}
 
 	@Test(expected = ExcepcionTipoVehiculo.class)
@@ -46,7 +49,7 @@ public class ModeloTests {
 		VehiculoDataBuilder buildVehiculo = new VehiculoDataBuilder();
 
 		// Act - Assert
-		buildVehiculo.withCilindraje(-10).withColor("BLACK").withMarca("HONDA").withTipo("BICICLETA").build();
+		buildVehiculo.withCilindraje(-10).withColor("BLACK").withMarca("HONDA").withTipo(3).build();
 	}
 
 	@Test(expected = ExcepcionTipoVehiculo.class)
@@ -55,7 +58,7 @@ public class ModeloTests {
 		VehiculoDataBuilder buildVehiculo = new VehiculoDataBuilder();
 
 		// Act - Assert
-		buildVehiculo.withCilindraje(-10).withColor("WHITE").withMarca("HONDA").withTipo(null).build();
+		buildVehiculo.withCilindraje(-10).withColor("WHITE").withMarca("HONDA").withTipo(0).build();
 	}
 
 	@Test(expected = ExcepcionVehiculoObligatorio.class)

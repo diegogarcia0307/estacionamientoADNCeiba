@@ -7,14 +7,16 @@ public class Vehiculo {
 	private String placa;
 	private String marca;
 	private String color;
-	private String tipo;
 	private double cilindraje;
+	/* Tipo = 1 para CARRO, Tipo = 2 para MOTO */
+	private int tipo;
 
 	public Vehiculo() {
-		placa = marca = tipo = color = "<DEFECTO>";
+		placa = marca = color = "<DEFECTO>";
+		tipo = 0;
 	}
 
-	public Vehiculo(String tipo, String placa, double cilindraje, String marca, String color) {
+	public Vehiculo(int tipo, String placa, double cilindraje, String marca, String color) {
 
 		ValidadorVehiculo.validarTipoVehiculo(tipo);
 		ValidadorVehiculo.validarPlaca(placa);
@@ -33,7 +35,7 @@ public class Vehiculo {
 		ValidadorVehiculo.validarPlaca(vehiculo.getPlaca());
 		ValidadorVehiculo.validarCilindraje(vehiculo.getCilindraje());
 
-		this.tipo = vehiculo.getTipo().toUpperCase();
+		this.tipo = vehiculo.getTipo();
 		this.placa = vehiculo.getPlaca().toUpperCase();
 		this.marca = vehiculo.getMarca().toUpperCase();
 		this.color = vehiculo.getColor().toUpperCase();
@@ -64,11 +66,11 @@ public class Vehiculo {
 		this.color = color;
 	}
 
-	public String getTipo() {
+	public int getTipo() {
 		return tipo;
 	}
 
-	public void setTipo(String tipo) {
+	public void setTipo(int tipo) {
 		this.tipo = tipo;
 	}
 

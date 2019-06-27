@@ -41,8 +41,8 @@ public class ControlerTests {
 	private final String PLACACARRO = "DDDE333";
 	private final String PLACAMOTOMENOR = "23DRSG";
 	private final String PLACAMOTOMAYOR = "SW342D";
-	private final String CARRO = "CARRO";
-	private final String MOTO = "MOTO";
+	private final int CARRO = 1;
+	private final int MOTO = 2;
 
 	@Test
 	public void aListarVacioTest() throws Exception {
@@ -57,6 +57,8 @@ public class ControlerTests {
 
 	@Test
 	public void bRegistroCarroTest() throws Exception {
+		
+		
 		JSONObject vehiculo = new JSONObject();
 		JSONObject aux = new JSONObject();
 
@@ -130,7 +132,7 @@ public class ControlerTests {
 		vehiculoAux.put("placa", PLACACARRO);
 		vehiculoAux.put("marca", "HONDA");
 		vehiculoAux.put("color", "GREEN");
-		vehiculoAux.put("tipo", "MOTO");
+		vehiculoAux.put("tipo", MOTO);
 		vehiculoAux.put("cilindraje", 600);
 		vehiculo.put("vehiculo", vehiculoAux);
 

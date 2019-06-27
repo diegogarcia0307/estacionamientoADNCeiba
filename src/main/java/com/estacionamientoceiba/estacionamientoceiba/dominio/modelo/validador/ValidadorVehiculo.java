@@ -7,12 +7,11 @@ import com.estacionamientoceiba.estacionamientoceiba.dominio.excepcion.Excepcion
 public final class ValidadorVehiculo {
 
 	private ValidadorVehiculo() {
-		// TODO Auto-generated constructor stub
 	}
 
-	private static final String PLACA_OBLIGATORIA = "La placa es obligatoria";
-	private static final String TIPO_VEHICULO_OBLIGATORIO = "El tipo de vehiculo es obligatorio";
-	private static final String CILINDRAJE_CORRECTO = "El valor del cilindraje es obligatorio y su valor debe ser positivo";
+	private static final String PLACA_OBLIGATORIA = "La placa es obligatoria.";
+	private static final String TIPO_VEHICULO_OBLIGATORIO = "El tipo de vehiculo no corresponde con un CARRO o una MOTO.";
+	private static final String CILINDRAJE_CORRECTO = "El valor del cilindraje es obligatorio y su valor debe ser positivo.";
 
 	public static void validarPlaca(Object objeto) {
 		if (objeto == null || ((String) objeto).isEmpty()) {
@@ -27,9 +26,8 @@ public final class ValidadorVehiculo {
 
 	}
 
-	public static void validarTipoVehiculo(Object tipo) {
-		if (tipo == null || ((String) tipo).isEmpty()
-				|| !("Carro".equalsIgnoreCase((String) tipo)) && !("Moto".equalsIgnoreCase((String) tipo))) {
+	public static void validarTipoVehiculo(int tipo) {
+		if (tipo != 1 && tipo != 2) {
 			throw new ExcepcionTipoVehiculo(TIPO_VEHICULO_OBLIGATORIO);
 		}
 	}

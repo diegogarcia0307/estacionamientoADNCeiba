@@ -19,6 +19,8 @@ import com.estacionamientoceiba.estacionamientoceiba.dominio.repositorio.Reposit
 public class ServicioCrearAlquilerEstacionamiento {
 	private static final String PERMANENCIA = "El vehiculo ya se encuentra dentro del parqueadero";
 	private static final String NO_DISPONIBILIDAD = "No hay disponibilidad para el vehiculo que intenta ingresar";
+	private final int CAPACIDAD_MOTOS = 10;
+	private final int CAPACIDAD_CARROS = 20;
 	private RepositorioAlquiler repositorioAlquiler;
 
 	private static final Logger LOG = LoggerFactory.getLogger(ServicioCrearAlquilerEstacionamiento.class);
@@ -39,17 +41,17 @@ public class ServicioCrearAlquilerEstacionamiento {
 			throw new ExcepcionGenerica(PERMANENCIA);
 	}
 
-	private void verificarDisponibilidad(String tipo) {
+	private void verificarDisponibilidad(int tipo) {
 		List<Alquiler> plazas = new ArrayList<>(repositorioAlquiler.listar());
 		int count = 0;
 
 		for (Alquiler alquiler : plazas) {
-			if (alquiler.getVehiculo().getTipo().equalsIgnoreCase(tipo)) {
+			if (alquiler.getVehiculo().getTipo() == tipo) {
 				count++;
 			}
 		}
 
-		if (("Carro".equalsIgnoreCase(tipo) && count >= 20) || (("Moto".equalsIgnoreCase(tipo)) && count >= 10)) {
+		if ((tipo == 1 && count >= CAPACIDAD_CARROS) || (tipo == 2 && count >= CAPACIDAD_MOTOS)) {
 			throw new ExcepcionGenerica(NO_DISPONIBILIDAD);
 		}
 	}

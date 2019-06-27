@@ -14,18 +14,18 @@ public class ValidadorAlquiler {
 
 	private static final String VEHICULO_OBLIGATORIO = "El vehiculo es obligatorio para hacer el registro";
 	private static final String HOY_NO_PUEDE_INGRESAR = "El carro no puede ingresar el dia de hoy";
- 
+
 	public static void validarVehiculo(Object objeto) {
 		if (objeto == null) {
 			throw new ExcepcionVehiculoObligatorio(VEHICULO_OBLIGATORIO);
 		}
 	}
 
-	public static String verificarPlaca(String tipo, String placa, Date dia) {
+	public static String verificarPlaca(int tipo, String placa, Date dia) {
 
 		placa = placa.toUpperCase();
 
-		if ("Carro".equalsIgnoreCase(tipo) && placa.startsWith("A")) {
+		if (tipo == 1 && placa.startsWith("A")) {
 
 			Calendar diaAux = Calendar.getInstance();
 			diaAux.setTime(dia);
@@ -50,7 +50,7 @@ public class ValidadorAlquiler {
 		long horasConsumidas = diferencia.toHours();
 		double valorPagar = 0;
 
-		if ("Moto".equalsIgnoreCase(vehiculo.getTipo())) {
+		if (vehiculo.getTipo() == 2) {
 
 			while (horasConsumidas > 0) {
 
@@ -82,7 +82,7 @@ public class ValidadorAlquiler {
 		long horasConsumidasCarro = diferencia.toHours();
 		double valorPagarCarro = 0;
 
-		if ("Carro".equalsIgnoreCase(vehiculo.getTipo()))
+		if (vehiculo.getTipo() == 1)
 
 			while (horasConsumidasCarro > 0) {
 
@@ -101,7 +101,7 @@ public class ValidadorAlquiler {
 
 	public boolean verificarCilindrajeMoto(Vehiculo vehiculo) {
 
-		if ("Moto".equalsIgnoreCase(vehiculo.getTipo()))
+		if (vehiculo.getTipo() == 2)
 			return vehiculo.getCilindraje() > 500;
 
 		return false;

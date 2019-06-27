@@ -8,6 +8,6 @@ import lombok.Getter;
 public class JsonRespuestaCrear {
 
 	String placa;
-	String tipoVehiculo;
+	int tipoVehiculo;
 	boolean estadoOperacion;
 }

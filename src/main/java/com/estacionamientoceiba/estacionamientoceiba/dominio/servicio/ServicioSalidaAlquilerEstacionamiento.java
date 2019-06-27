@@ -29,7 +29,7 @@ public class ServicioSalidaAlquilerEstacionamiento {
 	}
 
 	private double calcularPago(Alquiler alquiler) {
-		if ("Moto".equalsIgnoreCase(alquiler.getVehiculo().getTipo())) {
+		if (alquiler.getVehiculo().getTipo() == 2) {
 			return ValidadorAlquiler.calcularPagoMotos(alquiler.getVehiculo(), alquiler.getFechaIngreso(),
 					alquiler.getFechaSalida());
 		} else {

@@ -19,14 +19,12 @@ import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.validador.Va
 public class DominioTests {
 
 	private final String FORMATO_FECHA = "HH:mm:ss dd-MM-yyyy";
-	private final String CARRO = "CARRO";
-	private final String MOTO = "MOTO";
+	private final int CARRO = 1;
+	private final int MOTO = 2;
 
 	@Test
 	public void calcularPagoMotoCilindrajeMayorTest() throws ParseException {
 		// Arrange
-		ValidadorAlquiler validador = new ValidadorAlquiler();
-
 		VehiculoDataBuilder buildVehiculo = new VehiculoDataBuilder();
 		Vehiculo vehiculo = buildVehiculo.withTipo(MOTO).withCilindraje(600).withColor("RED").withMarca("BAJAJ")
 				.withPlaca("WEARV23").build();
@@ -37,7 +35,7 @@ public class DominioTests {
 
 		// Act
 		double esperado = 6000;
-		double actual = validador.calcularPagoMotos(vehiculo, fechaIngreso, fechaSalida);
+		double actual = ValidadorAlquiler.calcularPagoMotos(vehiculo, fechaIngreso, fechaSalida);
 
 		// Assert
 
@@ -47,8 +45,6 @@ public class DominioTests {
 	@Test
 	public void calcularPagoMotoCilindrajeMenorTest() throws ParseException {
 		// Arrange
-		ValidadorAlquiler validador = new ValidadorAlquiler();
-
 		VehiculoDataBuilder buildVehiculo = new VehiculoDataBuilder();
 		Vehiculo vehiculo = buildVehiculo.withTipo(MOTO).withCilindraje(120).withColor("RED").withMarca("SUZUKY")
 				.withPlaca("8BHB4").build();
@@ -59,7 +55,7 @@ public class DominioTests {
 
 		// Act
 		double esperado = 4000;
-		double actual = validador.calcularPagoMotos(vehiculo, fechaIngreso, fechaSalida);
+		double actual = ValidadorAlquiler.calcularPagoMotos(vehiculo, fechaIngreso, fechaSalida);
 
 		// Assert
 
@@ -69,8 +65,6 @@ public class DominioTests {
 	@Test
 	public void calcularPagoHorasMotoCilindrajeMenorTest() throws ParseException {
 		// Arrange
-		ValidadorAlquiler validador = new ValidadorAlquiler();
-
 		VehiculoDataBuilder buildVehiculo = new VehiculoDataBuilder();
 		Vehiculo vehiculo = buildVehiculo.withTipo(MOTO).withCilindraje(120).withColor("RED").withMarca("SUZUKY")
 				.withPlaca("BH789S").build();
@@ -81,7 +75,7 @@ public class DominioTests {
 
 		// Act
 		double esperado = 1500;
-		double actual = validador.calcularPagoMotos(vehiculo, fechaIngreso, fechaSalida);
+		double actual = ValidadorAlquiler.calcularPagoMotos(vehiculo, fechaIngreso, fechaSalida);
 
 		// Assert
 
@@ -91,8 +85,6 @@ public class DominioTests {
 	@Test
 	public void calcularPagoCarrosTest() throws ParseException {
 		// Arrange
-		ValidadorAlquiler validador = new ValidadorAlquiler();
-
 		VehiculoDataBuilder buildVehiculo = new VehiculoDataBuilder();
 		Vehiculo vehiculo = buildVehiculo.withTipo(CARRO).withCilindraje(120).withColor("RED").withMarca("TOYOTA")
 				.withPlaca("1QSWA2").build();
@@ -103,7 +95,7 @@ public class DominioTests {
 
 		// Act
 		double esperado = 11000;
-		double actual = validador.calcularPagoCarros(vehiculo, fechaIngreso, fechaSalida);
+		double actual = ValidadorAlquiler.calcularPagoCarros(vehiculo, fechaIngreso, fechaSalida);
 
 		// Assert
 
@@ -113,8 +105,6 @@ public class DominioTests {
 	@Test
 	public void calcularPagoHorasCarrosTest() throws ParseException {
 		// Arrange
-		ValidadorAlquiler validador = new ValidadorAlquiler();
-
 		VehiculoDataBuilder buildVehiculo = new VehiculoDataBuilder();
 		Vehiculo vehiculo = buildVehiculo.withTipo(CARRO).withCilindraje(120).withColor("RED").withMarca("TOYOTA")
 				.withPlaca("SRD36D").build();
@@ -125,7 +115,7 @@ public class DominioTests {
 
 		// Act
 		double esperado = 3000;
-		double actual = validador.calcularPagoCarros(vehiculo, fechaIngreso, fechaSalida);
+		double actual = ValidadorAlquiler.calcularPagoCarros(vehiculo, fechaIngreso, fechaSalida);
 
 		// Assert
 
@@ -135,15 +125,13 @@ public class DominioTests {
 	@Test
 	public void verificarPlacaPermitidaSoloLunesDomingosTest() throws ParseException {
 		// Arrange
-		ValidadorAlquiler validador = new ValidadorAlquiler();
-
 		SimpleDateFormat sdf = new SimpleDateFormat(FORMATO_FECHA);
 		Date fecha = sdf.parse("12:02:02 23-06-2019");
 
 		String esperado = "Puede ingresar";
 
 		// Act
-		String actual = validador.verificarPlaca(CARRO, "AR43S", fecha);
+		String actual = ValidadorAlquiler.verificarPlaca(CARRO, "AR43S", fecha);
 
 		// Assert
 		assert (actual.equalsIgnoreCase(esperado));
@@ -152,13 +140,11 @@ public class DominioTests {
 	@Test(expected = ExcepcionGenerica.class)
 	public void verificarPlacaNOPermitidaTest() throws ParseException {
 		// Arrange
-		ValidadorAlquiler validador = new ValidadorAlquiler();
-
 		SimpleDateFormat sdf = new SimpleDateFormat(FORMATO_FECHA);
 		Date fecha = sdf.parse("15:05:32 25-06-2019");
 
 		// Act
-		validador.verificarPlaca(CARRO, "AR43S", fecha);
+		ValidadorAlquiler.verificarPlaca(CARRO, "AR43S", fecha);
 
 	}
 
