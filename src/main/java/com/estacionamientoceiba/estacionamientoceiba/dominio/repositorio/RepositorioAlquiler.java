@@ -2,7 +2,7 @@ package com.estacionamientoceiba.estacionamientoceiba.dominio.repositorio;
 
 import java.util.Collection;
 
-import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.JsonRespuestaCrear;
+import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.RespuestaCreacion;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.Alquiler;
 
 /**
@@ -14,7 +14,7 @@ public interface RepositorioAlquiler {
 	/**
 	 * Permite crear un alquiler
 	 */
-	JsonRespuestaCrear crear(Alquiler alquiler);
+	RespuestaCreacion crear(Alquiler alquiler);
 
 	/**
 	 * Permite calcular la fecha de salida y el valor a pagar

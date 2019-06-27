@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.ComandoAlquiler;
-import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.JsonRespuesta;
-import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.JsonRespuestaCrear;
-import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.JsonRespuestaPago;
+import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.RespuestaBusqueda;
+import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.RespuestaCreacion;
+import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.RespuestaPagoSalida;
 import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.ManejadorCrearAlquilerEstacionamiento;
 import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.ManejadorListarAlquileresEstacionamiento;
 import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.ManejadorSalidaAlquilerEstacionamiento;
@@ -51,21 +51,21 @@ public class ControladorAlquiler {
 
 	@ApiOperation("crear")
 	@PostMapping
-	public JsonRespuestaCrear crear(@RequestBody ComandoAlquiler comandoIngresado) {
+	public RespuestaCreacion crear(@RequestBody ComandoAlquiler comandoIngresado) {
 		return this.manejadorCrear.ejecutar(comandoIngresado);
 	}
 
 	@ApiOperation("salida")
 	@PutMapping("/{placa}")
-	public JsonRespuestaPago salida(@PathVariable String placa) {
+	public RespuestaPagoSalida salida(@PathVariable String placa) {
 		return this.manejadorSalida.salidaAlquiler(placa);
 	}
 
 	@ApiOperation("busqueda")
 	@GetMapping("/{placa}")
-	public JsonRespuesta buscar(@PathVariable String placa) {
+	public RespuestaBusqueda buscar(@PathVariable String placa) {
 		Alquiler alquiler = this.manejadorListar.buscarAlquiler(placa);
-		return new JsonRespuesta(alquiler.getVehiculo().getPlaca(), alquiler.getVehiculo().getTipo(),
+		return new RespuestaBusqueda(alquiler.getVehiculo().getPlaca(), alquiler.getVehiculo().getTipo(),
 				alquiler.getFechaIngreso());
 	}
 }

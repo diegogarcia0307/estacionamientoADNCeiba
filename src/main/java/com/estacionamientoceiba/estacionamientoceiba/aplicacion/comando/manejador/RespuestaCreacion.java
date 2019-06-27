@@ -1,14 +1,13 @@
 package com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 @AllArgsConstructor
-public class JsonRespuestaPago {
+@Getter
+public class RespuestaCreacion {
 
-	private double pago;
-
-	public double getPago() {
-		return pago;
-	}
-
+	String placa;
+	int tipoVehiculo;
+	boolean estadoOperacion;
 }

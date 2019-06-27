@@ -1,13 +1,14 @@
 package com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador;
 
+import java.util.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class JsonRespuestaCrear {
-
+public class RespuestaBusqueda {
 	String placa;
 	int tipoVehiculo;
-	boolean estadoOperacion;
+	Date fechaIngreso;
 }

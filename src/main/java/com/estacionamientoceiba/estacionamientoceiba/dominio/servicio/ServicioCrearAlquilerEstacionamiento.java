@@ -10,7 +10,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.JsonRespuestaCrear;
+import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.RespuestaCreacion;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.excepcion.ExcepcionGenerica;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.Alquiler;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.Vehiculo;
@@ -19,8 +19,8 @@ import com.estacionamientoceiba.estacionamientoceiba.dominio.repositorio.Reposit
 public class ServicioCrearAlquilerEstacionamiento {
 	private static final String PERMANENCIA = "El vehiculo ya se encuentra dentro del parqueadero";
 	private static final String NO_DISPONIBILIDAD = "No hay disponibilidad para el vehiculo que intenta ingresar";
-	private final int CAPACIDAD_MOTOS = 10;
-	private final int CAPACIDAD_CARROS = 20;
+	private static final int CAPACIDADMOTOS = 10;
+	private static final int CAPACIDADCARROS = 20;
 	private RepositorioAlquiler repositorioAlquiler;
 
 	private static final Logger LOG = LoggerFactory.getLogger(ServicioCrearAlquilerEstacionamiento.class);
@@ -29,7 +29,7 @@ public class ServicioCrearAlquilerEstacionamiento {
 		this.repositorioAlquiler = repositorioAlquiler;
 	}
 
-	public JsonRespuestaCrear ejecutar(Vehiculo vehiculo) {
+	public RespuestaCreacion ejecutar(Vehiculo vehiculo) {
 		verificarDisponibilidad(vehiculo.getTipo());
 		verificarPermanencia(vehiculo);
 		Alquiler alquiler = new Alquiler(new Vehiculo(vehiculo), obtenerHoraIngreso());
@@ -51,7 +51,7 @@ public class ServicioCrearAlquilerEstacionamiento {
 			}
 		}
 
-		if ((tipo == 1 && count >= CAPACIDAD_CARROS) || (tipo == 2 && count >= CAPACIDAD_MOTOS)) {
+		if ((tipo == 1 && count >= CAPACIDADCARROS) || (tipo == 2 && count >= CAPACIDADMOTOS)) {
 			throw new ExcepcionGenerica(NO_DISPONIBILIDAD);
 		}
 	}
