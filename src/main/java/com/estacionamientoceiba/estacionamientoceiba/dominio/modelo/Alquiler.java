@@ -20,6 +20,11 @@ public class Alquiler {
 		pago = 0;
 	}
 
+	public Alquiler(Vehiculo vehiculo) {
+		ValidadorAlquiler.validarVehiculo(vehiculo);
+		this.vehiculo = vehiculo;
+	}
+
 	public Alquiler(Vehiculo vehiculo, Date fechaIngreso, Date fechaSalida, String puesto, double pago) {
 
 		ValidadorAlquiler.validarVehiculo(vehiculo);
@@ -42,6 +47,10 @@ public class Alquiler {
 
 	public Vehiculo getVehiculo() {
 		return vehiculo;
+	}
+
+	public void setVehiculo(Vehiculo vehiculo) {
+		this.vehiculo = vehiculo;
 	}
 
 	public Date getFechaIngreso() {

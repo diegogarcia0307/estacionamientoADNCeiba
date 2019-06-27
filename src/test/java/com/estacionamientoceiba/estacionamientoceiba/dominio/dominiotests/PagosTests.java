@@ -6,17 +6,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.junit.FixMethodOrder;
 import org.junit.Test;
-import org.junit.runners.MethodSorters;
 
 import com.estacionamientoceiba.estacionamientoceiba.dominio.databuilder.VehiculoDataBuilder;
-import com.estacionamientoceiba.estacionamientoceiba.dominio.excepcion.ExcepcionGenerica;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.Vehiculo;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.validador.ValidadorAlquiler;
 
-@FixMethodOrder(MethodSorters.JVM)
-public class DominioTests {
+public class PagosTests {
 
 	private final String FORMATO_FECHA = "HH:mm:ss dd-MM-yyyy";
 	private final int CARRO = 1;
@@ -122,54 +118,4 @@ public class DominioTests {
 		assertEquals(esperado, actual, 0.0);
 	}
 
-	@Test
-	public void verificarPlacaPermitidaSoloLunesDomingosTest() throws ParseException {
-		// Arrange
-		SimpleDateFormat sdf = new SimpleDateFormat(FORMATO_FECHA);
-		Date fecha = sdf.parse("12:02:02 23-06-2019");
-
-		String esperado = "Puede ingresar";
-
-		// Act
-		String actual = ValidadorAlquiler.verificarPlaca(CARRO, "AR43S", fecha);
-
-		// Assert
-		assert (actual.equalsIgnoreCase(esperado));
-	}
-
-	@Test(expected = ExcepcionGenerica.class)
-	public void verificarPlacaNOPermitidaTest() throws ParseException {
-		// Arrange
-		SimpleDateFormat sdf = new SimpleDateFormat(FORMATO_FECHA);
-		Date fecha = sdf.parse("15:05:32 25-06-2019");
-
-		// Act
-		ValidadorAlquiler.verificarPlaca(CARRO, "AR43S", fecha);
-
-	}
-
-	@Test
-	public void verificarCilindrajeMenorMotoTest() {
-		// Arrange
-		VehiculoDataBuilder buildVehiculo = new VehiculoDataBuilder();
-		Vehiculo vehiculo = buildVehiculo.withTipo(MOTO).withCilindraje(150).withColor("GRAY").withMarca("HONDA")
-				.withPlaca("SDQW67").build();
-
-		ValidadorAlquiler validador = new ValidadorAlquiler();
-		// Act and Assert
-		assert (!validador.verificarCilindrajeMoto(vehiculo));
-	}
-
-	@Test
-	public void verificarCilindrajeMayorMotoTest() {
-		// Arrange
-		VehiculoDataBuilder buildVehiculo = new VehiculoDataBuilder();
-		Vehiculo vehiculo = buildVehiculo.withTipo(MOTO).withCilindraje(600).withColor("GRAY").withMarca("AUTECO")
-				.withPlaca("DJNHR").build();
-
-		ValidadorAlquiler validador = new ValidadorAlquiler();
-
-		// Act and Assert
-		assert (validador.verificarCilindrajeMoto(vehiculo));
-	}
 }
