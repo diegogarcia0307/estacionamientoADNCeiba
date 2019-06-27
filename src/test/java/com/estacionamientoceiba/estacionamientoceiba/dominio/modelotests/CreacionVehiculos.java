@@ -11,7 +11,7 @@ import com.estacionamientoceiba.estacionamientoceiba.dominio.excepcion.Excepcion
 import com.estacionamientoceiba.estacionamientoceiba.dominio.excepcion.ExcepcionTipoVehiculo;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.excepcion.ExcepcionVehiculoObligatorio;
 
-public class ModeloTests {
+public class CreacionVehiculos {
 
 	private final int CARRO = 1;
 	private final int MOTO = 2;
