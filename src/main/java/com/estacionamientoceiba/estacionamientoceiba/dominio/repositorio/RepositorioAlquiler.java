@@ -2,7 +2,7 @@ package com.estacionamientoceiba.estacionamientoceiba.dominio.repositorio;
 
 import java.util.Collection;
 
-import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.RespuestaCreacion;
+import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.respuestas.RespuestaCreacion;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.Alquiler;
 
 /**

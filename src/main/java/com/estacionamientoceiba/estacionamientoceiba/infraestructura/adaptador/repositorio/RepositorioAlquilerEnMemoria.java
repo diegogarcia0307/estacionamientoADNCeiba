@@ -14,7 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
-import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.RespuestaCreacion;
+import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.respuestas.RespuestaCreacion;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.Alquiler;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.repositorio.RepositorioAlquiler;
 

@@ -15,9 +15,9 @@ import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.ComandoA
 import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.ManejadorCrearAlquilerEstacionamiento;
 import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.ManejadorListarAlquileresEstacionamiento;
 import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.ManejadorSalidaAlquilerEstacionamiento;
-import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.RespuestaBusqueda;
-import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.RespuestaCreacion;
-import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.RespuestaPagoSalida;
+import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.respuestas.RespuestaBusqueda;
+import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.respuestas.RespuestaCreacion;
+import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.respuestas.RespuestaPagoSalida;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.Alquiler;
 
 import io.swagger.annotations.Api;

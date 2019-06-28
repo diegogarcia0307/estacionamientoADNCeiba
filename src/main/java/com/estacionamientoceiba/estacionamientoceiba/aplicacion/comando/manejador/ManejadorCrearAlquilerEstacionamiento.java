@@ -3,6 +3,7 @@ package com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejad
 import org.springframework.stereotype.Component;
 
 import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.ComandoAlquiler;
+import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.respuestas.RespuestaCreacion;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.servicio.ServicioCrearAlquilerEstacionamiento;
 
 @Component

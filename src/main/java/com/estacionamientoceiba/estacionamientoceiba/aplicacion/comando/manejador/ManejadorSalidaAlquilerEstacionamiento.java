@@ -2,6 +2,7 @@ package com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejad
 
 import org.springframework.stereotype.Component;
 
+import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.respuestas.RespuestaPagoSalida;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.servicio.ServicioSalidaAlquilerEstacionamiento;
 
 @Component

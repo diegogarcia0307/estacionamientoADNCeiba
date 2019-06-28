@@ -1,4 +1,4 @@
-package com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador;
+package com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.respuestas;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
