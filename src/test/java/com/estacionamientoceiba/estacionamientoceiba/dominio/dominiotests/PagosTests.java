@@ -34,8 +34,7 @@ public class PagosTests {
 		double actual = ValidadorAlquiler.calcularPagoMotos(vehiculo, fechaIngreso, fechaSalida);
 
 		// Assert
-
-		assertEquals(actual, esperado, 0.0);
+		assertEquals(actual, esperado, 0);
 	}
 
 	@Test

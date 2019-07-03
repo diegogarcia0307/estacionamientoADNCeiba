@@ -11,7 +11,7 @@ public class Alquiler {
 	private Date fechaSalida;
 	private String puesto;
 	private double pago;
-
+public static final double HORA_MOTOS=1222;
 	public Alquiler() {
 		vehiculo = new Vehiculo();
 		fechaIngreso = new Date(0);
