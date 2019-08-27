@@ -15,7 +15,7 @@ public class VerificarCilindrajeTests {
 		// Arrange
 		VehiculoDataBuilder buildVehiculo = new VehiculoDataBuilder();
 		Vehiculo vehiculo = buildVehiculo.withTipo(MOTO).withCilindraje(150).withColor("GRAY").withMarca("HONDA")
-				.withPlaca("SDQW67").build();
+				.withPlaca("SDQW67").buildVehiculo();
 
 		ValidadorAlquiler validador = new ValidadorAlquiler();
 		// Act and Assert
@@ -27,7 +27,7 @@ public class VerificarCilindrajeTests {
 		// Arrange
 		VehiculoDataBuilder buildVehiculo = new VehiculoDataBuilder();
 		Vehiculo vehiculo = buildVehiculo.withTipo(MOTO).withCilindraje(600).withColor("GRAY").withMarca("AUTECO")
-				.withPlaca("DJNHR").build();
+				.withPlaca("DJNHR").buildVehiculo();
 
 		ValidadorAlquiler validador = new ValidadorAlquiler();
 

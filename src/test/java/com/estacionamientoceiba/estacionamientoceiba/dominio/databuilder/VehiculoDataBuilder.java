@@ -40,7 +40,7 @@ public class VehiculoDataBuilder {
 		return this;
 	}
 
-	public Vehiculo build() {
+	public Vehiculo buildVehiculo() {
 		return new Vehiculo(this.tipo, this.placa, this.cilindraje, this.marca, this.color);
 	}
 }

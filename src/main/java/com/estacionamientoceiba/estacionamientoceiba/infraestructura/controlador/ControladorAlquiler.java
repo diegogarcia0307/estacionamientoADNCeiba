@@ -15,7 +15,6 @@ import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.ComandoA
 import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.ManejadorCrearAlquilerEstacionamiento;
 import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.ManejadorListarAlquileresEstacionamiento;
 import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.ManejadorSalidaAlquilerEstacionamiento;
-import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.respuestas.RespuestaBusqueda;
 import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.respuestas.RespuestaCreacion;
 import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.respuestas.RespuestaPagoSalida;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.Alquiler;
@@ -61,9 +60,7 @@ public class ControladorAlquiler {
 
 	@ApiOperation("busqueda")
 	@GetMapping("/{placa}")
-	public RespuestaBusqueda buscar(@PathVariable String placa) {
-		Alquiler alquiler = this.manejadorListar.buscarAlquiler(placa);
-		return new RespuestaBusqueda(alquiler.getVehiculo().getPlaca(), alquiler.getVehiculo().getTipo(),
-				alquiler.getFechaIngreso());
+	public Alquiler buscar(@PathVariable String placa) {
+		return this.manejadorListar.buscarAlquiler(placa);
 	}
 }

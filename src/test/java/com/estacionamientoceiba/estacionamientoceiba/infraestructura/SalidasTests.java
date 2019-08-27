@@ -28,7 +28,7 @@ public class SalidasTests {
 	private final String PLACAMOTOMAYOR = "SW342D";
 
 	@Test
-	public void hDarSalidaCarroTest() throws Exception {
+	public void darSalidaCarroTest() throws Exception {
 
 		mvc.perform(MockMvcRequestBuilders.put(URL + "{placa}", PLACACARRO).accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk()).andExpect(MockMvcResultMatchers.jsonPath("$.pago").exists());
@@ -36,7 +36,7 @@ public class SalidasTests {
 	}
 
 	@Test
-	public void iDarSalidaMotoCilindrajeMenorTest() throws Exception {
+	public void darSalidaMotoCilindrajeMenorTest() throws Exception {
 
 		mvc.perform(MockMvcRequestBuilders.put(URL + "{placa}", PLACAMOTOMENOR).accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk()).andExpect(MockMvcResultMatchers.jsonPath("$.pago").exists());
@@ -44,7 +44,7 @@ public class SalidasTests {
 	}
 
 	@Test
-	public void jDarSalidaMotoCilindrajeMayorTest() throws Exception {
+	public void darSalidaMotoCilindrajeMayorTest() throws Exception {
 
 		mvc.perform(MockMvcRequestBuilders.put(URL + "{placa}", PLACAMOTOMAYOR).accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk()).andExpect(MockMvcResultMatchers.jsonPath("$.pago").exists());
@@ -52,7 +52,7 @@ public class SalidasTests {
 	}
 
 	@Test(expected = NestedServletException.class)
-	public void kDarSalidaVehiculoNoIngresadoTest() throws Exception {
+	public void darSalidaVehiculoNoIngresadoTest() throws Exception {
 
 		mvc.perform(MockMvcRequestBuilders.put(URL + "{placa}", "DEFECTO").accept(MediaType.APPLICATION_JSON));
 

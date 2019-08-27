@@ -46,7 +46,7 @@ public class AlquilerDataBuilder {
 		return this;
 	}
 
-	public Alquiler build() {
+	public Alquiler buildAlquiler() {
 		return new Alquiler(vehiculo, fechaIngreso, fechaSalida, puesto, pago);
 	}
 }

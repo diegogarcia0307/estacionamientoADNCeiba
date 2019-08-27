@@ -2,11 +2,9 @@ package com.estacionamientoceiba.estacionamientoceiba.infraestructura.adaptador.
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -72,7 +70,7 @@ public class RepositorioAlquilerEnMemoria implements RepositorioAlquiler {
 	}
 
 	@Override
-	public Collection<Alquiler> listar() {
+	public Collection<Alquiler> listarTodo() {
 		return obtenerAlquileres();
 	}
 
@@ -82,14 +80,11 @@ public class RepositorioAlquilerEnMemoria implements RepositorioAlquiler {
 
 	@Override
 	public Alquiler buscarAlquiler(String placa) {
-		List<Alquiler> lista = new ArrayList<>(listar());
-		Alquiler alquiler = new Alquiler();
-		for (int i = 0; i < lista.size(); i++) {
-			if (lista.get(i).getVehiculo().getPlaca().equalsIgnoreCase(placa)) {
-				alquiler = lista.get(i);
-			}
+		for (Alquiler alquiler : obtenerAlquileres()) {
+			if (placa.equalsIgnoreCase(alquiler.getVehiculo().getPlaca()))
+				return alquiler;
 		}
-		return alquiler;
+		return new Alquiler();
 	}
 
 	@Override

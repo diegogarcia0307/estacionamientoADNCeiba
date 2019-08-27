@@ -22,7 +22,7 @@ public class CreacionVehiculos {
 		VehiculoDataBuilder buildVehiculo = new VehiculoDataBuilder();
 
 		// Act - Assert
-		buildVehiculo.withPlaca(null).withCilindraje(200).withColor("FUCSIA").withTipo(MOTO).build();
+		buildVehiculo.withPlaca(null).withCilindraje(200).withColor("FUCSIA").withTipo(MOTO).buildVehiculo();
 	}
 
 	@Test(expected = ExcepcionPlacaObligatoria.class)
@@ -31,7 +31,7 @@ public class CreacionVehiculos {
 		VehiculoDataBuilder buildVehiculo = new VehiculoDataBuilder();
 
 		// Act - Assert
-		buildVehiculo.withPlaca("").withCilindraje(200).withColor("YELLOW").withTipo(CARRO).build();
+		buildVehiculo.withPlaca("").withCilindraje(200).withColor("YELLOW").withTipo(CARRO).buildVehiculo();
 	}
 
 	@Test(expected = ExcepcionCilindrajeCorrecto.class)
@@ -40,7 +40,7 @@ public class CreacionVehiculos {
 		VehiculoDataBuilder buildVehiculo = new VehiculoDataBuilder();
 
 		// Act - Assert
-		buildVehiculo.withCilindraje(-10).withColor("RED").withMarca("AKT").withTipo(CARRO).build();
+		buildVehiculo.withCilindraje(-10).withColor("RED").withMarca("AKT").withTipo(CARRO).buildVehiculo();
 	}
 
 	@Test(expected = ExcepcionTipoVehiculo.class)
@@ -49,7 +49,7 @@ public class CreacionVehiculos {
 		VehiculoDataBuilder buildVehiculo = new VehiculoDataBuilder();
 
 		// Act - Assert
-		buildVehiculo.withCilindraje(-10).withColor("BLACK").withMarca("HONDA").withTipo(3).build();
+		buildVehiculo.withCilindraje(-10).withColor("BLACK").withMarca("HONDA").withTipo(3).buildVehiculo();
 	}
 
 	@Test(expected = ExcepcionTipoVehiculo.class)
@@ -58,7 +58,7 @@ public class CreacionVehiculos {
 		VehiculoDataBuilder buildVehiculo = new VehiculoDataBuilder();
 
 		// Act - Assert
-		buildVehiculo.withCilindraje(-10).withColor("WHITE").withMarca("HONDA").withTipo(0).build();
+		buildVehiculo.withCilindraje(-10).withColor("WHITE").withMarca("HONDA").withTipo(0).buildVehiculo();
 	}
 
 	@Test(expected = ExcepcionVehiculoObligatorio.class)
@@ -66,7 +66,7 @@ public class CreacionVehiculos {
 		AlquilerDataBuilder buildAlquiler = new AlquilerDataBuilder();
 		Date fechaIngreso = new Date();
 		buildAlquiler.withVehiculo(null).withPago(11000).withPuesto("MOTO 1").withFechaIngreso(fechaIngreso)
-				.withFechaSalida(fechaIngreso).build();
+				.withFechaSalida(fechaIngreso).buildAlquiler();
 	}
 
 }

@@ -42,7 +42,7 @@ public class ServicioCrearAlquilerEstacionamiento {
 	}
 
 	private void verificarDisponibilidad(int tipo) {
-		List<Alquiler> plazas = new ArrayList<>(repositorioAlquiler.listar());
+		List<Alquiler> plazas = new ArrayList<>(repositorioAlquiler.listarTodo());
 		int count = 0;
 
 		for (Alquiler alquiler : plazas) {

@@ -1,6 +1,8 @@
 package com.estacionamientoceiba.estacionamientoceiba.infraestructura;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.hamcrest.CoreMatchers.is;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.Test;
@@ -31,7 +33,7 @@ public class BuscarTests {
 	private final ObjectMapper objetoJSON = new ObjectMapper();
 
 	@Test
-	public void fBuscarCarroTest() throws Exception {
+	public void buscarCarroTest() throws Exception {
 
 		int carro = 1;
 
@@ -39,11 +41,10 @@ public class BuscarTests {
 
 		mvc.perform(MockMvcRequestBuilders.post(URL).content(objetoJSON.writeValueAsString(alquiler))
 				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
-				.andExpect(MockMvcResultMatchers.jsonPath("$.estadoOperacion").exists());
+				.andExpect(MockMvcResultMatchers.jsonPath("$.estadoOperacion").exists())
+				.andExpect(jsonPath("$.placa", is(PLACACARRO)));
 
-		mvc.perform(MockMvcRequestBuilders.get(URL + "{placa}", PLACACARRO).accept(MediaType.APPLICATION_JSON))
-				.andDo(print()).andExpect(status().isOk())
-				.andExpect(MockMvcResultMatchers.jsonPath("$.placa").value(PLACACARRO));
-
+		mvc.perform(get(URL + "{placa}", PLACACARRO).contentType((MediaType.APPLICATION_JSON)))
+				.andExpect(MockMvcResultMatchers.jsonPath("$.vehiculo.placa").value(PLACACARRO));
 	}
 }
