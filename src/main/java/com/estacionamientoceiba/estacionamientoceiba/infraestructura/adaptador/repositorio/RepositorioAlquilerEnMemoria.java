@@ -31,7 +31,10 @@ public class RepositorioAlquilerEnMemoria implements RepositorioAlquiler {
 	@Override
 	public RespuestaCreacion crear(Alquiler alquiler) {
 		alquileres.put(UUID.randomUUID().toString(), alquiler);
-		return new RespuestaCreacion(alquiler.getVehiculo().getPlaca(), alquiler.getVehiculo().getTipo(), true);
+		RespuestaCreacion respuesta = new RespuestaCreacion(alquiler.getVehiculo().getPlaca(),
+				alquiler.getVehiculo().getTipo(), true);
+		System.out.println(respuesta.toString());
+		return respuesta;
 	}
 
 	@Override

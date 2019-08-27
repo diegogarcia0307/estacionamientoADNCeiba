@@ -3,7 +3,6 @@ package com.estacionamientoceiba.estacionamientoceiba.infraestructura.controlado
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -51,7 +50,7 @@ public class ControladorAlquiler {
 	@ApiOperation("crear")
 	@PostMapping
 	public RespuestaCreacion crear(@RequestBody ComandoAlquiler comandoIngresado) {
-		return this.manejadorCrear.ejecutar(comandoIngresado);
+		return new RespuestaCreacion(this.manejadorCrear.ejecutar(comandoIngresado));
 	}
 
 	@ApiOperation("salida")

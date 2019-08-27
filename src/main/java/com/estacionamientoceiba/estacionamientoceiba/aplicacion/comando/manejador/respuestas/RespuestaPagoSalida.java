@@ -7,6 +7,10 @@ public class RespuestaPagoSalida {
 
 	private double pago;
 
+	public RespuestaPagoSalida(double pago) {
+		this.pago = pago;
+	}
+
 	public double getPago() {
 		return pago;
 	}
