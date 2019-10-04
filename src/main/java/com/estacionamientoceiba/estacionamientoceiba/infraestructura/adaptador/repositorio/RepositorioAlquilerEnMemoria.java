@@ -31,7 +31,6 @@ public class RepositorioAlquilerEnMemoria implements RepositorioAlquiler {
 		alquileres.put(UUID.randomUUID().toString(), alquiler);
 		RespuestaCreacion respuesta = new RespuestaCreacion(alquiler.getVehiculo().getPlaca(),
 				alquiler.getVehiculo().getTipo(), true);
-		System.out.println(respuesta.toString());
 		return respuesta;
 	}
 

@@ -1,15 +1,17 @@
 package com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.respuestas;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
 public class RespuestaPagoSalida {
 
 	private double pago;
-
-	public RespuestaPagoSalida(double pago) {
-		this.pago = pago;
-	}
 
 	public double getPago() {
 		return pago;
