@@ -19,7 +19,7 @@ public class ServicioSalidaVehiculo {
 	}
 
 	public RespuestaPagoSalida salidaAlquiler(String placa) {
-		// verificarExistencia(placa);
+		// verificarPermanenciaVehiculo(placa);
 		RespuestaPagoSalida pago = new RespuestaPagoSalida(calcularPago(repositorioAlquiler.buscarVehiculo(placa),
 				repositorioAlquiler.buscarAlquiler(placa).getFechaIngreso()));
 		repositorioAlquiler.salidaVehiculo(placa);
@@ -27,8 +27,8 @@ public class ServicioSalidaVehiculo {
 		return pago;
 	}
 
-	private void verificarExistencia(String placa) {
-		if (!repositorioAlquiler.verificarPermanencia(placa))
+	private void verificarPermanenciaVehiculo(String placa) {
+		if (!repositorioAlquiler.comprobarPermanenciaVehiculo(placa))
 			throw new ExcepcionGenerica(NO_EXISTE);
 	}
 

@@ -48,14 +48,6 @@ public class Alquiler {
 		this.fechaIngreso = fechaIngreso;
 	}
 
-	public long getidVehiculo() {
-		return idVehiculo;
-	}
-
-	public void setidVehiculo(long idVehiculo) {
-		this.idVehiculo = idVehiculo;
-	}
-
 	public Date getFechaIngreso() {
 		return fechaIngreso;
 	}
@@ -74,6 +66,26 @@ public class Alquiler {
 
 	public double getPago() {
 		return pago;
+	}
+
+	public long getIdVehiculo() {
+		return idVehiculo;
+	}
+
+	public void setIdVehiculo(long idVehiculo) {
+		this.idVehiculo = idVehiculo;
+	}
+
+	public void setFechaIngreso(Date fechaIngreso) {
+		this.fechaIngreso = fechaIngreso;
+	}
+
+	public void setPuesto(String puesto) {
+		this.puesto = puesto;
+	}
+
+	public void setPago(double pago) {
+		this.pago = pago;
 	}
 
 }

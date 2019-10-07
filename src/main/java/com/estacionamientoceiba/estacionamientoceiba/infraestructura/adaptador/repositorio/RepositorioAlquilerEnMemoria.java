@@ -1,44 +1,41 @@
 package com.estacionamientoceiba.estacionamientoceiba.infraestructura.adaptador.repositorio;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 import java.util.Collection;
-import java.util.concurrent.ConcurrentHashMap;
 
 import javax.sql.DataSource;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.respuestas.RespuestaCreacion;
+import com.estacionamientoceiba.estacionamientoceiba.aplicacion.mapper.AlquilerRowMapper;
+import com.estacionamientoceiba.estacionamientoceiba.aplicacion.mapper.VehiculoRowMapper;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.Alquiler;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.Vehiculo;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.repositorio.RepositorioAlquiler;
 import com.estacionamientoceiba.estacionamientoceiba.infraestructura.adaptador.configuracion.ConexionDB;
-import com.estacionamientoceiba.estacionamientoceiba.infraestructura.adaptador.excepcion.ExcepcionTecnica;
 
 @Repository
 public class RepositorioAlquilerEnMemoria implements RepositorioAlquiler {
 
-	private static final String ERROR_OBTENIENDO_EL_NOMBRE_Y_VALOR_DE_OBJETO = "Error obteniendo el nombre y valor de objeto";
+	private static final String QUERY_BUSCAR_VEHICULO = "SELECT * FROM vehiculo WHERE placa LIKE ?";
+	private static final String QUERY_BUSCAR_ALQUILER = "SELECT a.* FROM alquiler as a, vehiculo as v WHERE a.idVehiculo = v.idVehiculo and v.placa like ?";
+	private static final String QUERY_DISPONIBILIDAD_CARROS = "SELECT COUNT(a.idAlquiler) as conteo FROM alquiler as a, vehiculo as v WHERE a.fechaSalida IS null and a.idVehiculo = v.idVehiculo and v.tipo = 1";
+	private static final String QUERY_DISPONIBILIDAD_MOTOS = "SELECT COUNT(a.idAlquiler) as conteo FROM alquiler as a, vehiculo as v WHERE a.fechaSalida IS null and a.idVehiculo = v.idVehiculo and v.tipo = 2";
+	private static final String QUERY_PERMANENCIA_VEHICULO = "SELECT v.* FROM alquiler as a , vehiculo as v WHERE a.fechaSalida IS null and a.idVehiculo = v.idVehiculo and v.placa like ?";
 
-	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+	private static final int CAPACIDAD_CARROS = 20;
+	private static final int CAPACIDAD_MOTOS = 10;
+
 	private SimpleJdbcInsert simpleJdbcInsert;
-
-	private static ConcurrentHashMap<String, Alquiler> alquileres;
-	private static final Logger LOG = LoggerFactory.getLogger(RepositorioAlquilerEnMemoria.class);
 
 	@Autowired
 	public RepositorioAlquilerEnMemoria() {
 		this.simpleJdbcInsert = new SimpleJdbcInsert(getDataSource());
-		this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
 	}
 
 	private DataSource getDataSource() {
@@ -51,7 +48,7 @@ public class RepositorioAlquilerEnMemoria implements RepositorioAlquiler {
 		long idVehiculo = insertarVehiculo(vehiculo);
 
 		Alquiler alquiler = new Alquiler();
-		alquiler.setidVehiculo(idVehiculo);
+		alquiler.setIdVehiculo(idVehiculo);
 
 		long idAlquiler = insertarAlquiler(alquiler);
 
@@ -111,59 +108,62 @@ public class RepositorioAlquilerEnMemoria implements RepositorioAlquiler {
 	}
 
 	@Override
-	public boolean verificarPermanencia(String placa) {
-		// return obtenerAlquileres().stream().anyMatch(fila ->
-		// fila.getVehiculo().getPlaca().equalsIgnoreCase(placa));
+	public boolean comprobarPermanenciaVehiculo(String placa) {
+
+		try {
+			simpleJdbcInsert.getJdbcTemplate().queryForObject(QUERY_PERMANENCIA_VEHICULO, new Object[] { placa },
+					new VehiculoRowMapper());
+		} catch (EmptyResultDataAccessException emptyR) {
+			return false;
+		}
+
 		return true;
 	}
 
 	@Override
-	public Collection<Alquiler> listarTodo() {
-		return obtenerAlquileres();
-	}
-
-	private static Collection<Alquiler> obtenerAlquileres() {
-		return alquileres.values();
+	public Collection<Alquiler> listarTodoAlquiler() {
+		return null;
 	}
 
 	@Override
 	public Alquiler buscarAlquiler(String placa) {
-		/*
-		 * for (Alquiler alquiler : obtenerAlquileres()) { if
-		 * (placa.equalsIgnoreCase(alquiler.getVehiculo().getPlaca())) return alquiler;
-		 * }
-		 */
-		return new Alquiler();
-	}
 
-	@Override
-	public void eliminarPlaza(String placa) {
+		return simpleJdbcInsert.getJdbcTemplate().queryForObject(QUERY_BUSCAR_ALQUILER, new Object[] { placa },
+				new AlquilerRowMapper());
 
-		Alquiler alquiler = buscarAlquiler(placa);
-
-		alquileres.values().remove(alquiler);
-	}
-
-	private MapSqlParameterSource crearParametros(Object object) {
-		MapSqlParameterSource paramSource = new MapSqlParameterSource();
-		Field[] fields = object.getClass().getDeclaredFields();
-		for (int i = 0; i < fields.length; i++) {
-			try {
-				Field field = fields[i];
-				if (!Modifier.isStatic(field.getModifiers()) && !Modifier.isFinal(field.getModifiers())) {
-					field.setAccessible(true);
-					paramSource.addValue(field.getName(), field.get(object));
-					field.setAccessible(false);
-				}
-			} catch (Exception e) {
-				throw new ExcepcionTecnica(ERROR_OBTENIENDO_EL_NOMBRE_Y_VALOR_DE_OBJETO, e);
-			}
-		}
-		return paramSource;
 	}
 
 	@Override
 	public Vehiculo buscarVehiculo(String placa) {
+
+		return simpleJdbcInsert.getJdbcTemplate().queryForObject(QUERY_BUSCAR_VEHICULO, new Object[] { placa },
+				new VehiculoRowMapper());
+
+	}
+
+	@Override
+	public boolean verificarDisponibilidad(int tipo) {
+
+		int cantidadActual = 0;
+		boolean estado = true;
+
+		if (tipo == 1) {
+			cantidadActual = simpleJdbcInsert.getJdbcTemplate().queryForObject(QUERY_DISPONIBILIDAD_CARROS,
+					Integer.class);
+			estado = cantidadActual < CAPACIDAD_CARROS;
+		} else if (tipo == 2) {
+
+			cantidadActual = simpleJdbcInsert.getJdbcTemplate().queryForObject(QUERY_DISPONIBILIDAD_MOTOS,
+					Integer.class);
+			estado = cantidadActual < CAPACIDAD_MOTOS;
+		}
+
+		return estado;
+
+	}
+
+	@Override
+	public Collection<Vehiculo> listarTodoVehiculo() {
 		return null;
 	}
 }

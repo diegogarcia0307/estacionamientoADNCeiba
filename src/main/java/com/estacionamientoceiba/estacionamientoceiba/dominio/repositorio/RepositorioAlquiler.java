@@ -23,19 +23,18 @@ public interface RepositorioAlquiler {
 	Alquiler salidaVehiculo(String placa);
 
 	/**
-	 * Permite eliminar el espacio del parqueadero
-	 */
-	void eliminarPlaza(String placa);
-
-	/**
 	 * Ayuda a verificar si el vehiculo ya se encuentra dentro del parqueadero
 	 */
-	boolean verificarPermanencia(String placa);
+	boolean comprobarPermanenciaVehiculo(String placa);
+
+	boolean verificarDisponibilidad(int tipo);
 
 	/**
 	 * Genera un listado de alquiler
 	 */
-	Collection<Alquiler> listarTodo();
+	Collection<Alquiler> listarTodoAlquiler();
+
+	Collection<Vehiculo> listarTodoVehiculo();
 
 	/**
 	 * Permite buscar un alquiler en especifico, dependiendo la placa
