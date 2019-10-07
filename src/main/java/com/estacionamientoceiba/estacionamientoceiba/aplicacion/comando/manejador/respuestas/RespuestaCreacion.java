@@ -1,28 +1,30 @@
 package com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.respuestas;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
 public class RespuestaCreacion {
 
-	String placa;
-	int tipoVehiculo;
+	String idGenerado;
 	boolean estadoOperacion;
+	String mensaje;
 
 	public RespuestaCreacion(RespuestaCreacion respuesta) {
-		placa = respuesta.getPlaca();
-		tipoVehiculo = respuesta.getTipoVehiculo();
+		idGenerado = respuesta.getIdGenerado();
 		estadoOperacion = respuesta.isEstadoOperacion();
+		mensaje = respuesta.getMensaje();
 	}
 
-	@Override
-	public String toString() {
-		return "RespuestaCreacion [placa=" + placa + ", tipoVehiculo=" + tipoVehiculo + ", estadoOperacion="
-				+ estadoOperacion + "]";
+	public RespuestaCreacion(String idGenerado, boolean estadoOperacion) {
+		this.idGenerado = idGenerado;
+		this.estadoOperacion = estadoOperacion;
+		if (estadoOperacion) {
+			setMensaje("La operación se pudo realizar con éxito.");
+		} else {
+			setMensaje("La operación no se pudo realizar. Inténtelo de nuevo.");
+		}
 	}
 
 }
