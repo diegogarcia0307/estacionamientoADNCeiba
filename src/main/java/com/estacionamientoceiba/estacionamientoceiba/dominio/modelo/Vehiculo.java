@@ -82,4 +82,10 @@ public class Vehiculo {
 		this.cilindraje = cilindraje;
 	}
 
+	@Override
+	public String toString() {
+		return "Vehiculo [placa=" + placa + ", marca=" + marca + ", color=" + color + ", cilindraje=" + cilindraje
+				+ ", tipo=" + tipo + "]";
+	}
+
 }

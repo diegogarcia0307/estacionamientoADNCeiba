@@ -2,8 +2,8 @@ package com.estacionamientoceiba.estacionamientoceiba.dominio.repositorio;
 
 import java.util.Collection;
 
-import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.respuestas.RespuestaCreacion;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.Alquiler;
+import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.Vehiculo;
 
 /**
  * @author diego.garcia
@@ -12,32 +12,34 @@ import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.Alquiler;
 public interface RepositorioAlquiler {
 
 	/**
-	 * Permite crear un alquiler
+	 * Permite crear un alquiler y retorna el nuevo id
 	 */
-	RespuestaCreacion crear(Alquiler alquiler);
+	long crearAlquiler(Vehiculo vehiculo);
 
 	/**
-	 * Permite calcular la fecha de salida y el valor a pagar
+	 * Permite calcular la fecha de salida de un vehiculo, y retorna el valor a
+	 * pagar
 	 */
-	Alquiler salidaAlquiler(String placa);
-
-	/**
-	 * Permite eliminar el espacio del parqueadero
-	 */
-	void eliminarPlaza(String placa);
+	double salidaVehiculo(Alquiler alquiler);
 
 	/**
 	 * Ayuda a verificar si el vehiculo ya se encuentra dentro del parqueadero
 	 */
-	boolean verificarPermanencia(String placa);
+	boolean comprobarPermanenciaVehiculo(String placa);
+
+	boolean verificarDisponibilidad(int tipo);
 
 	/**
 	 * Genera un listado de alquiler
 	 */
-	Collection<Alquiler> listarTodo();
+	Collection<Alquiler> listarTodoAlquiler();
+
+	Collection<Vehiculo> listarTodoVehiculo();
 
 	/**
 	 * Permite buscar un alquiler en especifico, dependiendo la placa
 	 */
 	Alquiler buscarAlquiler(String placa);
+
+	Vehiculo buscarVehiculo(String placa);
 }

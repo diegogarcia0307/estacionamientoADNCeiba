@@ -6,52 +6,40 @@ import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.validador.Va
 
 public class Alquiler {
 
-	private Vehiculo vehiculo;
+	private long idAlquiler;
+	private long idVehiculo;
 	private Date fechaIngreso;
 	private Date fechaSalida;
 	private String puesto;
 	private double pago;
-	public static final double HORA_MOTOS = 1222;
 
 	public Alquiler() {
-		vehiculo = new Vehiculo();
-		fechaIngreso = new Date(0);
+		idVehiculo = 0L;
+		fechaIngreso = new Date();
 		fechaSalida = null;
 		puesto = "<DEFAULT>";
 		pago = 0;
 	}
 
-	public Alquiler(Vehiculo vehiculo) {
-		ValidadorAlquiler.validarVehiculo(vehiculo);
-		this.vehiculo = vehiculo;
+	public Alquiler(long idVehiculo) {
+		ValidadorAlquiler.validarVehiculo(idVehiculo);
+		this.idVehiculo = idVehiculo;
 	}
 
-	public Alquiler(Vehiculo vehiculo, Date fechaIngreso, Date fechaSalida, String puesto, double pago) {
+	public Alquiler(long idVehiculo, Date fechaIngreso, Date fechaSalida, String puesto, double pago) {
 
-		ValidadorAlquiler.validarVehiculo(vehiculo);
-		ValidadorAlquiler.verificarPlaca(vehiculo.getTipo(), vehiculo.getPlaca(), fechaIngreso);
+		ValidadorAlquiler.validarVehiculo(idVehiculo);
 
-		this.vehiculo = vehiculo;
+		this.idVehiculo = idVehiculo;
 		this.fechaIngreso = fechaIngreso;
 		this.fechaSalida = fechaSalida;
 		this.puesto = puesto;
 		this.pago = pago;
 	}
 
-	public Alquiler(Vehiculo vehiculo, Date fechaIngreso) {
-		ValidadorAlquiler.validarVehiculo(vehiculo);
-		ValidadorAlquiler.verificarPlaca(vehiculo.getTipo(), vehiculo.getPlaca(), fechaIngreso);
-
-		this.vehiculo = vehiculo;
+	public Alquiler(Date fechaIngreso) {
+		ValidadorAlquiler.validarVehiculo(idVehiculo);
 		this.fechaIngreso = fechaIngreso;
-	}
-
-	public Vehiculo getVehiculo() {
-		return vehiculo;
-	}
-
-	public void setVehiculo(Vehiculo vehiculo) {
-		this.vehiculo = vehiculo;
 	}
 
 	public Date getFechaIngreso() {
@@ -72,6 +60,40 @@ public class Alquiler {
 
 	public double getPago() {
 		return pago;
+	}
+
+	public long getIdVehiculo() {
+		return idVehiculo;
+	}
+
+	public void setIdVehiculo(long idVehiculo) {
+		this.idVehiculo = idVehiculo;
+	}
+
+	public void setFechaIngreso(Date fechaIngreso) {
+		this.fechaIngreso = fechaIngreso;
+	}
+
+	public void setPuesto(String puesto) {
+		this.puesto = puesto;
+	}
+
+	public void setPago(double pago) {
+		this.pago = pago;
+	}
+
+	public long getIdAlquiler() {
+		return idAlquiler;
+	}
+
+	public void setIdAlquiler(long idAlquiler) {
+		this.idAlquiler = idAlquiler;
+	}
+
+	@Override
+	public String toString() {
+		return "Alquiler [idAlquiler=" + idAlquiler + ", idVehiculo=" + idVehiculo + ", fechaIngreso=" + fechaIngreso
+				+ ", fechaSalida=" + fechaSalida + ", puesto=" + puesto + ", pago=" + pago + "]";
 	}
 
 }

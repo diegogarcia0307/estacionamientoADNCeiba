@@ -17,6 +17,6 @@ public class ServicioListarAlquilerEstacionamiento {
 	}
 
 	public Collection<Alquiler> listar() {
-		return repositorioAlquiler.listarTodo();
+		return repositorioAlquiler.listarTodoAlquiler();
 	}
 }
