@@ -6,12 +6,12 @@ import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.validador.Va
 
 public class Alquiler {
 
+	private long idAlquiler;
 	private long idVehiculo;
 	private Date fechaIngreso;
 	private Date fechaSalida;
 	private String puesto;
 	private double pago;
-	public static final double HORA_MOTOS = 1222;
 
 	public Alquiler() {
 		idVehiculo = 0L;
@@ -29,8 +29,6 @@ public class Alquiler {
 	public Alquiler(long idVehiculo, Date fechaIngreso, Date fechaSalida, String puesto, double pago) {
 
 		ValidadorAlquiler.validarVehiculo(idVehiculo);
-		// ValidadorAlquiler.verificarPlaca(idVehiculo.getTipo(), idVehiculo.getPlaca(),
-		// fechaIngreso);
 
 		this.idVehiculo = idVehiculo;
 		this.fechaIngreso = fechaIngreso;
@@ -41,10 +39,6 @@ public class Alquiler {
 
 	public Alquiler(Date fechaIngreso) {
 		ValidadorAlquiler.validarVehiculo(idVehiculo);
-		// ValidadorAlquiler.verificarPlaca(idVehiculo.getTipo(), idVehiculo.getPlaca(),
-		// fechaIngreso);
-
-		// this.idVehiculo = idVehiculo;
 		this.fechaIngreso = fechaIngreso;
 	}
 
@@ -86,6 +80,20 @@ public class Alquiler {
 
 	public void setPago(double pago) {
 		this.pago = pago;
+	}
+
+	public long getIdAlquiler() {
+		return idAlquiler;
+	}
+
+	public void setIdAlquiler(long idAlquiler) {
+		this.idAlquiler = idAlquiler;
+	}
+
+	@Override
+	public String toString() {
+		return "Alquiler [idAlquiler=" + idAlquiler + ", idVehiculo=" + idVehiculo + ", fechaIngreso=" + fechaIngreso
+				+ ", fechaSalida=" + fechaSalida + ", puesto=" + puesto + ", pago=" + pago + "]";
 	}
 
 }

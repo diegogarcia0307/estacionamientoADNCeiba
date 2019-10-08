@@ -7,11 +7,11 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
-import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.respuestas.RespuestaCreacion;
 import com.estacionamientoceiba.estacionamientoceiba.aplicacion.mapper.AlquilerRowMapper;
 import com.estacionamientoceiba.estacionamientoceiba.aplicacion.mapper.VehiculoRowMapper;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.Alquiler;
@@ -27,15 +27,18 @@ public class RepositorioAlquilerEnMemoria implements RepositorioAlquiler {
 	private static final String QUERY_DISPONIBILIDAD_CARROS = "SELECT COUNT(a.idAlquiler) as conteo FROM alquiler as a, vehiculo as v WHERE a.fechaSalida IS null and a.idVehiculo = v.idVehiculo and v.tipo = 1";
 	private static final String QUERY_DISPONIBILIDAD_MOTOS = "SELECT COUNT(a.idAlquiler) as conteo FROM alquiler as a, vehiculo as v WHERE a.fechaSalida IS null and a.idVehiculo = v.idVehiculo and v.tipo = 2";
 	private static final String QUERY_PERMANENCIA_VEHICULO = "SELECT v.* FROM alquiler as a , vehiculo as v WHERE a.fechaSalida IS null and a.idVehiculo = v.idVehiculo and v.placa like ?";
+	private static final String QUERY_SALIDA_VEHICULO = "UPDATE alquiler SET fechaSalida = :fechaSalida, pago = :pago WHERE idAlquiler = :idAlquiler";
 
 	private static final int CAPACIDAD_CARROS = 20;
 	private static final int CAPACIDAD_MOTOS = 10;
 
 	private SimpleJdbcInsert simpleJdbcInsert;
+	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
 	@Autowired
 	public RepositorioAlquilerEnMemoria() {
 		this.simpleJdbcInsert = new SimpleJdbcInsert(getDataSource());
+		this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
 	}
 
 	private DataSource getDataSource() {
@@ -43,16 +46,15 @@ public class RepositorioAlquilerEnMemoria implements RepositorioAlquiler {
 	}
 
 	@Override
-	public RespuestaCreacion crearAlquiler(Vehiculo vehiculo) {
+	public long crearAlquiler(Vehiculo vehiculo) {
 
 		long idVehiculo = insertarVehiculo(vehiculo);
 
 		Alquiler alquiler = new Alquiler();
 		alquiler.setIdVehiculo(idVehiculo);
 
-		long idAlquiler = insertarAlquiler(alquiler);
+		return insertarAlquiler(alquiler);
 
-		return new RespuestaCreacion(String.valueOf(idAlquiler), idAlquiler > 0);
 	}
 
 	private long insertarVehiculo(Vehiculo vehiculo) {
@@ -81,30 +83,13 @@ public class RepositorioAlquilerEnMemoria implements RepositorioAlquiler {
 	}
 
 	@Override
-	public Alquiler salidaVehiculo(String placa) {
+	public double salidaVehiculo(Alquiler alquiler) {
 
-		Alquiler alquilerSalir = new Alquiler();
+		SqlParameterSource parametros = new BeanPropertySqlParameterSource(alquiler);
 
-		/*
-		 * for (Alquiler alquiler : obtenerAlquileres()) {
-		 * 
-		 * if (placa.equalsIgnoreCase(alquiler.getVehiculo().getPlaca())) {
-		 * 
-		 * Calendar calendar = Calendar.getInstance(); SimpleDateFormat sdf = new
-		 * SimpleDateFormat("HH:mm:ss dd-MM-yyyy"); String strDate =
-		 * sdf.format(calendar.getTime());
-		 * 
-		 * SimpleDateFormat sp = new SimpleDateFormat("HH:mm:ss dd-MM-yyyy"); try { Date
-		 * date = sp.parse(strDate);
-		 * 
-		 * alquiler.setFechaSalida(date);
-		 * 
-		 * alquilerSalir = alquiler; } catch (ParseException e) {
-		 * LOG.error(e.getMessage(), e); }
-		 * 
-		 * } }
-		 */
-		return alquilerSalir;
+		namedParameterJdbcTemplate.update(QUERY_SALIDA_VEHICULO, parametros);
+
+		return alquiler.getPago();
 	}
 
 	@Override

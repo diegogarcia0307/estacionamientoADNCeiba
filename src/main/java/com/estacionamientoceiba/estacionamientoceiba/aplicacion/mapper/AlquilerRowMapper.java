@@ -13,11 +13,12 @@ public class AlquilerRowMapper implements RowMapper<Alquiler> {
 	public Alquiler mapRow(ResultSet rs, int rowNum) throws SQLException {
 		Alquiler alquiler = new Alquiler();
 
-		alquiler.setFechaIngreso(rs.getDate("fechaIngreso"));
-		alquiler.setFechaSalida(rs.getDate("fechaSalida"));
+		alquiler.setFechaIngreso(rs.getTimestamp("fechaIngreso"));
+		alquiler.setFechaSalida(rs.getTimestamp("fechaSalida"));
 		alquiler.setIdVehiculo(rs.getLong("idVehiculo"));
 		alquiler.setPago(rs.getDouble("pago"));
 		alquiler.setPuesto(rs.getString("puesto"));
+		alquiler.setIdAlquiler(rs.getLong("idAlquiler"));
 
 		return alquiler;
 	}

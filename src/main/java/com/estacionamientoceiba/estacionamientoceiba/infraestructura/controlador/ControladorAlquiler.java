@@ -55,7 +55,7 @@ public class ControladorAlquiler {
 	@ApiOperation("salida")
 	@PutMapping("/{placa}")
 	public RespuestaPagoSalida salida(@PathVariable String placa) {
-		return this.manejadorSalida.salidaAlquiler(placa);
+		return this.manejadorSalida.ejecutar(placa);
 	}
 
 	@ApiOperation("busqueda")

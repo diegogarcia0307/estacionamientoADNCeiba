@@ -4,13 +4,14 @@ import java.util.Date;
 
 import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.respuestas.RespuestaPagoSalida;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.excepcion.ExcepcionGenerica;
+import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.Alquiler;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.Vehiculo;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.validador.ValidadorAlquiler;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.repositorio.RepositorioAlquiler;
 
 public class ServicioSalidaVehiculo {
 
-	private static final String NO_EXISTE = "El veh�culo ingresado no se encuentra en el parqueadero";
+	private static final String NO_EXISTE_VEHICULO_ADENTRO = "El vehículo ingresado no se encuentra en el parqueadero.";
 
 	private RepositorioAlquiler repositorioAlquiler;
 
@@ -18,25 +19,34 @@ public class ServicioSalidaVehiculo {
 		this.repositorioAlquiler = repositorioAlquiler;
 	}
 
-	public RespuestaPagoSalida salidaAlquiler(String placa) {
-		// verificarPermanenciaVehiculo(placa);
-		RespuestaPagoSalida pago = new RespuestaPagoSalida(calcularPago(repositorioAlquiler.buscarVehiculo(placa),
-				repositorioAlquiler.buscarAlquiler(placa).getFechaIngreso()));
-		repositorioAlquiler.salidaVehiculo(placa);
-		// repositorioAlquiler.eliminarPlaza(placa);
-		return pago;
+	public RespuestaPagoSalida ejecutar(String placa) {
+
+		this.verificarPermanencia(placa);
+
+		Alquiler alquiler = repositorioAlquiler.buscarAlquiler(placa);
+		alquiler.setFechaSalida(new Date());
+
+		double valorPago = calcularPago(repositorioAlquiler.buscarVehiculo(placa), alquiler.getFechaIngreso(),
+				alquiler.getFechaSalida());
+
+		alquiler.setPago(valorPago);
+
+		repositorioAlquiler.salidaVehiculo(alquiler);
+
+		return new RespuestaPagoSalida(valorPago);
+
 	}
 
-	private void verificarPermanenciaVehiculo(String placa) {
+	private void verificarPermanencia(String placa) {
 		if (!repositorioAlquiler.comprobarPermanenciaVehiculo(placa))
-			throw new ExcepcionGenerica(NO_EXISTE);
+			throw new ExcepcionGenerica(NO_EXISTE_VEHICULO_ADENTRO);
 	}
 
-	private double calcularPago(Vehiculo vehiculo, Date fechaIngreso) {
+	private double calcularPago(Vehiculo vehiculo, Date fechaIngreso, Date fechaSalida) {
 		if (vehiculo.getTipo() == 2) {
-			return ValidadorAlquiler.calcularPagoMotos(vehiculo, fechaIngreso, new Date());
+			return ValidadorAlquiler.calcularPagoMotos(vehiculo.getCilindraje(), fechaIngreso, fechaSalida);
 		} else {
-			return ValidadorAlquiler.calcularPagoCarros(vehiculo, fechaIngreso, new Date());
+			return ValidadorAlquiler.calcularPagoCarros(fechaIngreso, fechaSalida);
 		}
 	}
 

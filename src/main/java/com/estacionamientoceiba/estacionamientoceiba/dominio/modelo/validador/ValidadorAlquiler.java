@@ -13,15 +13,20 @@ import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.Vehiculo;
 public class ValidadorAlquiler {
 
 	private static final String VEHICULO_OBLIGATORIO = "El vehiculo es obligatorio para hacer el registro";
-	private static final String HOY_NO_PUEDE_INGRESAR = "El carro no puede ingresar el dia de hoy";
+	private static final String HOY_NO_PUEDE_INGRESAR = "El carro no puede ingresar el dia de hoy, por ser de placa iniciada con A.";
+	private static final double VALOR_HORA_MOTOS = 500;
+	private static final double VALOR_DIA_MOTOS = 4000;
+	private static final double VALOR_PAGO_EXTRA_MOTOS = 2000;
+	private static final double VALOR_HORA_CARROS = 1000;
+	private static final double VALOR_DIA_CARROS = 8000;
 
-	public static void validarVehiculo(Object objeto) {
-		if (objeto == null) {
+	public static void validarVehiculo(long id) {
+		if (id <= 0) {
 			throw new ExcepcionVehiculoObligatorio(VEHICULO_OBLIGATORIO);
 		}
 	}
 
-	public static String verificarPlaca(int tipo, String placa, Date dia) {
+	public static String verificarAccesoPlaca(int tipo, String placa, Date dia) {
 
 		placa = placa.toUpperCase();
 
@@ -41,7 +46,7 @@ public class ValidadorAlquiler {
 		return "Puede ingresar";
 	}
 
-	public static double calcularPagoMotos(Vehiculo vehiculo, Date fechaIngreso, Date fechaSalida) {
+	public static double calcularPagoMotos(double cilindraje, Date fechaIngreso, Date fechaSalida) {
 
 		LocalDateTime dateIngreso = fechaIngreso.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
 		LocalDateTime dateSalida = fechaSalida.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
@@ -50,30 +55,27 @@ public class ValidadorAlquiler {
 		long horasConsumidas = diferencia.toHours();
 		double valorPagar = 0;
 
-		if (vehiculo.getTipo() == 2) {
+		while (horasConsumidas > 0) {
 
-			while (horasConsumidas > 0) {
-
-				if (horasConsumidas < 9) {
-					valorPagar += horasConsumidas * 500;
-					horasConsumidas -= horasConsumidas;
-				} else {
-					valorPagar += 4000;
-					horasConsumidas -= 24;
-				}
-
+			if (horasConsumidas < 9) {
+				valorPagar += horasConsumidas * VALOR_HORA_MOTOS;
+				horasConsumidas -= horasConsumidas;
+			} else {
+				valorPagar += VALOR_DIA_MOTOS;
+				horasConsumidas -= 24;
 			}
 
-			if (vehiculo.getCilindraje() > 500) {
-				valorPagar += 2000;
-				valorPagar = horasConsumidas == 0 ? (valorPagar + 500) : valorPagar;
-			}
 		}
 
-		return valorPagar == 0 ? 500 : valorPagar;
+		if (cilindraje > 500) {
+			valorPagar += VALOR_PAGO_EXTRA_MOTOS;
+			valorPagar = horasConsumidas == 0 ? (valorPagar + VALOR_HORA_MOTOS) : valorPagar;
+		}
+
+		return valorPagar == 0 ? VALOR_HORA_MOTOS : valorPagar;
 	}
 
-	public static double calcularPagoCarros(Vehiculo vehiculo, Date fechaIngreso, Date fechaSalida) {
+	public static double calcularPagoCarros(Date fechaIngreso, Date fechaSalida) {
 
 		LocalDateTime dateIngresoCarro = fechaIngreso.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
 		LocalDateTime dateSalidaCarro = fechaSalida.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
@@ -82,21 +84,19 @@ public class ValidadorAlquiler {
 		long horasConsumidasCarro = diferencia.toHours();
 		double valorPagarCarro = 0;
 
-		if (vehiculo.getTipo() == 1)
+		while (horasConsumidasCarro > 0) {
 
-			while (horasConsumidasCarro > 0) {
-
-				if (horasConsumidasCarro < 9) {
-					valorPagarCarro += horasConsumidasCarro * 1000;
-					horasConsumidasCarro -= horasConsumidasCarro;
-				} else {
-					valorPagarCarro += 8000;
-					horasConsumidasCarro -= 24;
-				}
-
+			if (horasConsumidasCarro < 9) {
+				valorPagarCarro += horasConsumidasCarro * VALOR_HORA_CARROS;
+				horasConsumidasCarro -= horasConsumidasCarro;
+			} else {
+				valorPagarCarro += VALOR_DIA_CARROS;
+				horasConsumidasCarro -= 24;
 			}
 
-		return valorPagarCarro == 0 ? 1000 : valorPagarCarro;
+		}
+
+		return valorPagarCarro == 0 ? VALOR_HORA_CARROS : valorPagarCarro;
 	}
 
 	public boolean verificarCilindrajeMoto(Vehiculo vehiculo) {

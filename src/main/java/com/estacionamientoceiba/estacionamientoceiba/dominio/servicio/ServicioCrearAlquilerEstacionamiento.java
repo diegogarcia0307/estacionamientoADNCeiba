@@ -1,8 +1,11 @@
 package com.estacionamientoceiba.estacionamientoceiba.dominio.servicio;
 
+import java.util.Date;
+
 import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.respuestas.RespuestaCreacion;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.excepcion.ExcepcionGenerica;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.Vehiculo;
+import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.validador.ValidadorAlquiler;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.repositorio.RepositorioAlquiler;
 
 public class ServicioCrearAlquilerEstacionamiento {
@@ -14,14 +17,17 @@ public class ServicioCrearAlquilerEstacionamiento {
 		this.repositorioAlquiler = repositorioAlquiler;
 	}
 
-	public RespuestaCreacion ejecutar(Vehiculo vehiculo) {
-		this.verificarPermanencia(vehiculo);
+	public RespuestaCreacion ejecutar(Vehiculo vehiculoParam) {
+		Vehiculo vehiculo = new Vehiculo(vehiculoParam);
+		this.verificarAccesoPlaca(vehiculo.getTipo(), vehiculo.getPlaca(), new Date());
+		this.verificarPermanencia(vehiculo.getPlaca());
 		this.verificarDisponibilidad(vehiculo.getTipo());
-		return this.repositorioAlquiler.crearAlquiler(vehiculo);
+		long idAlquiler = this.repositorioAlquiler.crearAlquiler(vehiculo);
+		return new RespuestaCreacion(String.valueOf(idAlquiler), idAlquiler > 0);
 	}
 
-	private void verificarPermanencia(Vehiculo vehiculo) {
-		if (repositorioAlquiler.comprobarPermanenciaVehiculo(vehiculo.getPlaca()))
+	private void verificarPermanencia(String placa) {
+		if (repositorioAlquiler.comprobarPermanenciaVehiculo(placa))
 			throw new ExcepcionGenerica(VEHICULO_DENTRO_DEL_PARQUEADERO);
 	}
 
@@ -29,6 +35,10 @@ public class ServicioCrearAlquilerEstacionamiento {
 		if (!repositorioAlquiler.verificarDisponibilidad(tipo)) {
 			throw new ExcepcionGenerica(NO_HAY_DISPONIBILIDAD);
 		}
+	}
+
+	private void verificarAccesoPlaca(int tipo, String placa, Date dia) {
+		ValidadorAlquiler.verificarAccesoPlaca(tipo, placa, dia);
 	}
 
 }

@@ -14,8 +14,8 @@ public class ManejadorSalidaAlquilerEstacionamiento {
 		this.servicioSalida = servicio;
 	}
 
-	public RespuestaPagoSalida salidaAlquiler(String placa) {
-		return servicioSalida.salidaAlquiler(placa);
+	public RespuestaPagoSalida ejecutar(String placa) {
+		return servicioSalida.ejecutar(placa);
 	}
 
 }
