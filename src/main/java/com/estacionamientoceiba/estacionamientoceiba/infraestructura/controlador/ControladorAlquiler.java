@@ -12,11 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.ComandoAlquiler;
-import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.ManejadorCrearAlquilerEstacionamiento;
-import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.ManejadorListarAlquileresEstacionamiento;
-import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.ManejadorSalidaAlquilerEstacionamiento;
-import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.respuestas.RespuestaCreacion;
-import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.respuestas.RespuestaPagoSalida;
+import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.respuestas.RespuestaCreacion;
+import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.respuestas.RespuestaListarAlquiler;
+import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.respuestas.RespuestaPagoSalida;
+import com.estacionamientoceiba.estacionamientoceiba.aplicacion.manejador.ManejadorCrearAlquiler;
+import com.estacionamientoceiba.estacionamientoceiba.aplicacion.manejador.ManejadorListarAlquileres;
+import com.estacionamientoceiba.estacionamientoceiba.aplicacion.manejador.ManejadorSalidaAlquiler;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.Alquiler;
 
 import io.swagger.annotations.Api;
@@ -27,40 +28,47 @@ import io.swagger.annotations.ApiOperation;
 @RequestMapping("/apiv1/alquileres")
 public class ControladorAlquiler {
 
-	private final ManejadorCrearAlquilerEstacionamiento manejadorCrear;
-	private final ManejadorListarAlquileresEstacionamiento manejadorListar;
-	private final ManejadorSalidaAlquilerEstacionamiento manejadorSalida;
+	private final ManejadorCrearAlquiler manejadorCrear;
+	private final ManejadorListarAlquileres manejadorListarAlquiler;
+	private final ManejadorSalidaAlquiler manejadorSalida;
 
 	@Autowired
-	public ControladorAlquiler(ManejadorCrearAlquilerEstacionamiento manejadorCrear,
-			ManejadorListarAlquileresEstacionamiento manejadorListar,
-			ManejadorSalidaAlquilerEstacionamiento manejadorSalida) {
+	public ControladorAlquiler(ManejadorCrearAlquiler manejadorCrear,
+			ManejadorListarAlquileres manejadorListar,
+			ManejadorSalidaAlquiler manejadorSalida) {
 		this.manejadorCrear = manejadorCrear;
-		this.manejadorListar = manejadorListar;
+		this.manejadorListarAlquiler = manejadorListar;
 		this.manejadorSalida = manejadorSalida;
-	}
-
-	@ApiOperation("listar")
-	@GetMapping
-	public Collection<Alquiler> listar() {
-		return this.manejadorListar.ejecutar();
 	}
 
 	@ApiOperation("crear")
 	@PostMapping
 	public RespuestaCreacion crear(@RequestBody ComandoAlquiler comandoIngresado) {
-		return new RespuestaCreacion(this.manejadorCrear.ejecutar(comandoIngresado));
+		return this.manejadorCrear.ejecutar(comandoIngresado);
 	}
 
 	@ApiOperation("salida")
 	@PutMapping("/{placa}")
 	public RespuestaPagoSalida salida(@PathVariable String placa) {
-		return this.manejadorSalida.ejecutar(placa);
+		return manejadorSalida.ejecutar(placa);
+	}
+
+	@ApiOperation("listarVehiculo")
+	@GetMapping("/listar/vehiculo")
+	public Collection<RespuestaListarAlquiler> listarVehiculo() {
+		// this.manejadorListar.ejecutar();
+		return null;
+	}
+
+	@ApiOperation("listaralquiler")
+	@GetMapping("/listar/alquiler")
+	public Collection<RespuestaListarAlquiler> listarAlquiler() {
+		return this.manejadorListarAlquiler.ejecutar();
 	}
 
 	@ApiOperation("busqueda")
-	@GetMapping("/{placa}")
-	public Alquiler buscar(@PathVariable String placa) {
-		return this.manejadorListar.buscarAlquiler(placa);
+	@GetMapping("buscar/alquiler/{placa}")
+	public RespuestaListarAlquiler buscar(@PathVariable String placa) {
+		return this.manejadorListarAlquiler.buscarAlquiler(placa);
 	}
 }

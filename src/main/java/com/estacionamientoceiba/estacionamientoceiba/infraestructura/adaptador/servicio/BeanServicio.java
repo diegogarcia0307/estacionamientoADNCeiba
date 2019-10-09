@@ -3,8 +3,8 @@ package com.estacionamientoceiba.estacionamientoceiba.infraestructura.adaptador.
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.estacionamientoceiba.estacionamientoceiba.dominio.servicio.ServicioCrearAlquilerEstacionamiento;
-import com.estacionamientoceiba.estacionamientoceiba.dominio.servicio.ServicioListarAlquilerEstacionamiento;
+import com.estacionamientoceiba.estacionamientoceiba.dominio.servicio.ServicioCrearAlquiler;
+import com.estacionamientoceiba.estacionamientoceiba.dominio.servicio.ServicioListarAlquiler;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.servicio.ServicioSalidaVehiculo;
 import com.estacionamientoceiba.estacionamientoceiba.infraestructura.adaptador.repositorio.RepositorioAlquilerEnMemoria;
 
@@ -12,13 +12,13 @@ import com.estacionamientoceiba.estacionamientoceiba.infraestructura.adaptador.r
 public class BeanServicio {
 
 	@Bean
-	public ServicioCrearAlquilerEstacionamiento servicioCrearAlquiler() {
-		return new ServicioCrearAlquilerEstacionamiento(new RepositorioAlquilerEnMemoria());
+	public ServicioCrearAlquiler servicioCrearAlquiler() {
+		return new ServicioCrearAlquiler(new RepositorioAlquilerEnMemoria());
 	}
 
 	@Bean
-	public ServicioListarAlquilerEstacionamiento servicioListarAlquiler() {
-		return new ServicioListarAlquilerEstacionamiento(new RepositorioAlquilerEnMemoria());
+	public ServicioListarAlquiler servicioListarAlquiler() {
+		return new ServicioListarAlquiler(new RepositorioAlquilerEnMemoria());
 	}
 
 	@Bean

@@ -1,0 +1,1 @@
+SELECT a.* FROM alquiler as a, vehiculo as v WHERE a.idVehiculo = v.idVehiculo and v.placa like ?

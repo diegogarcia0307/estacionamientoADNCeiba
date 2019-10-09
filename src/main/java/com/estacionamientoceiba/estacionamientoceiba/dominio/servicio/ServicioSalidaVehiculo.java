@@ -2,7 +2,6 @@ package com.estacionamientoceiba.estacionamientoceiba.dominio.servicio;
 
 import java.util.Date;
 
-import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.manejador.respuestas.RespuestaPagoSalida;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.excepcion.ExcepcionGenerica;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.Alquiler;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.Vehiculo;
@@ -19,7 +18,7 @@ public class ServicioSalidaVehiculo {
 		this.repositorioAlquiler = repositorioAlquiler;
 	}
 
-	public RespuestaPagoSalida ejecutar(String placa) {
+	public double ejecutar(String placa) {
 
 		this.verificarPermanencia(placa);
 
@@ -33,7 +32,7 @@ public class ServicioSalidaVehiculo {
 
 		repositorioAlquiler.salidaVehiculo(alquiler);
 
-		return new RespuestaPagoSalida(valorPago);
+		return valorPago;
 
 	}
 

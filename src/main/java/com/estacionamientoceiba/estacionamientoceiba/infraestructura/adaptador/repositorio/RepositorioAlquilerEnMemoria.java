@@ -12,12 +12,12 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
-import com.estacionamientoceiba.estacionamientoceiba.aplicacion.mapper.AlquilerRowMapper;
-import com.estacionamientoceiba.estacionamientoceiba.aplicacion.mapper.VehiculoRowMapper;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.Alquiler;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.Vehiculo;
 import com.estacionamientoceiba.estacionamientoceiba.dominio.repositorio.RepositorioAlquiler;
 import com.estacionamientoceiba.estacionamientoceiba.infraestructura.adaptador.configuracion.ConexionDB;
+import com.estacionamientoceiba.estacionamientoceiba.infraestructura.comun.mapper.AlquilerRowMapper;
+import com.estacionamientoceiba.estacionamientoceiba.infraestructura.comun.mapper.VehiculoRowMapper;
 
 @Repository
 public class RepositorioAlquilerEnMemoria implements RepositorioAlquiler {
@@ -106,11 +106,6 @@ public class RepositorioAlquilerEnMemoria implements RepositorioAlquiler {
 	}
 
 	@Override
-	public Collection<Alquiler> listarTodoAlquiler() {
-		return null;
-	}
-
-	@Override
 	public Alquiler buscarAlquiler(String placa) {
 
 		return simpleJdbcInsert.getJdbcTemplate().queryForObject(QUERY_BUSCAR_ALQUILER, new Object[] { placa },
@@ -149,6 +144,11 @@ public class RepositorioAlquilerEnMemoria implements RepositorioAlquiler {
 
 	@Override
 	public Collection<Vehiculo> listarTodoVehiculo() {
+		return null;
+	}
+
+	@Override
+	public Collection<Alquiler> listarTodoAlquiler() {
 		return null;
 	}
 }
