@@ -34,7 +34,11 @@ public interface RepositorioAlquiler {
 	 */
 	Collection<Alquiler> listarTodoAlquiler();
 
+	Collection<Alquiler> listarAlquileresEnUso();
+
 	Collection<Vehiculo> listarTodoVehiculo();
+
+	Collection<Vehiculo> listarVehiculosEnParqueadero();
 
 	/**
 	 * Permite buscar un alquiler en especifico, dependiendo la placa

@@ -16,7 +16,11 @@ public class ServicioListarVehiculo {
 		return repositorioAlquiler.buscarVehiculo(placa);
 	}
 
-	public Collection<Vehiculo> listar() {
+	public Collection<Vehiculo> listarTodos() {
 		return repositorioAlquiler.listarTodoVehiculo();
+	}
+
+	public Collection<Vehiculo> listarTodosEnParqueadero() {
+		return repositorioAlquiler.listarVehiculosEnParqueadero();
 	}
 }

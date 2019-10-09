@@ -16,7 +16,11 @@ public class ServicioListarAlquiler {
 		return repositorioAlquiler.buscarAlquiler(placa);
 	}
 
-	public Collection<Alquiler> listar() {
+	public Collection<Alquiler> listarAlquileresEnUso() {
+		return repositorioAlquiler.listarAlquileresEnUso();
+	}
+
+	public Collection<Alquiler> listarTodo() {
 		return repositorioAlquiler.listarTodoAlquiler();
 	}
 }

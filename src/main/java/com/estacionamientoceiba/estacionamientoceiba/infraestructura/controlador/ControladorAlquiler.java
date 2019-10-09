@@ -18,7 +18,6 @@ import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.respuest
 import com.estacionamientoceiba.estacionamientoceiba.aplicacion.manejador.ManejadorCrearAlquiler;
 import com.estacionamientoceiba.estacionamientoceiba.aplicacion.manejador.ManejadorListarAlquileres;
 import com.estacionamientoceiba.estacionamientoceiba.aplicacion.manejador.ManejadorSalidaAlquiler;
-import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.Alquiler;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -33,8 +32,7 @@ public class ControladorAlquiler {
 	private final ManejadorSalidaAlquiler manejadorSalida;
 
 	@Autowired
-	public ControladorAlquiler(ManejadorCrearAlquiler manejadorCrear,
-			ManejadorListarAlquileres manejadorListar,
+	public ControladorAlquiler(ManejadorCrearAlquiler manejadorCrear, ManejadorListarAlquileres manejadorListar,
 			ManejadorSalidaAlquiler manejadorSalida) {
 		this.manejadorCrear = manejadorCrear;
 		this.manejadorListarAlquiler = manejadorListar;
@@ -43,8 +41,8 @@ public class ControladorAlquiler {
 
 	@ApiOperation("crear")
 	@PostMapping
-	public RespuestaCreacion crear(@RequestBody ComandoAlquiler comandoIngresado) {
-		return this.manejadorCrear.ejecutar(comandoIngresado);
+	public RespuestaCreacion crear(@RequestBody ComandoAlquiler comandoAlquiler) {
+		return this.manejadorCrear.ejecutar(comandoAlquiler);
 	}
 
 	@ApiOperation("salida")
@@ -62,7 +60,7 @@ public class ControladorAlquiler {
 
 	@ApiOperation("listaralquiler")
 	@GetMapping("/listar/alquiler")
-	public Collection<RespuestaListarAlquiler> listarAlquiler() {
+	public Collection<RespuestaListarAlquiler> listarAlquileresEnUso() {
 		return this.manejadorListarAlquiler.ejecutar();
 	}
 

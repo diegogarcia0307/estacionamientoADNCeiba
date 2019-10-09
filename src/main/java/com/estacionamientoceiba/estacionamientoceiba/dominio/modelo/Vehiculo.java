@@ -4,6 +4,7 @@ import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.validador.Va
 
 public class Vehiculo {
 
+	private long idVehiculo;
 	private String placa;
 	private String marca;
 	private String color;
@@ -16,16 +17,17 @@ public class Vehiculo {
 		tipo = 0;
 	}
 
-	public Vehiculo(int tipo, String placa, double cilindraje, String marca, String color) {
+	public Vehiculo(long idVehiculo, int tipo, String placa, double cilindraje, String marca, String color) {
 
 		ValidadorVehiculo.validarTipoVehiculo(tipo);
 		ValidadorVehiculo.validarPlaca(placa);
 		ValidadorVehiculo.validarCilindraje(cilindraje);
 
+		this.idVehiculo = idVehiculo;
 		this.tipo = tipo;
-		this.placa = placa;
-		this.marca = marca;
-		this.color = color;
+		this.placa = placa.toUpperCase();
+		this.marca = marca.toUpperCase();
+		this.color = color.toUpperCase();
 		this.cilindraje = cilindraje;
 	}
 
@@ -64,6 +66,14 @@ public class Vehiculo {
 
 	public void setColor(String color) {
 		this.color = color;
+	}
+
+	public long getIdVehiculo() {
+		return idVehiculo;
+	}
+
+	public void setIdVehiculo(long idVehiculo) {
+		this.idVehiculo = idVehiculo;
 	}
 
 	public int getTipo() {

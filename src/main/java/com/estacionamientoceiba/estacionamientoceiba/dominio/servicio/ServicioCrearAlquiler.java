@@ -16,8 +16,7 @@ public class ServicioCrearAlquiler {
 		this.repositorioAlquiler = repositorioAlquiler;
 	}
 
-	public long ejecutar(Vehiculo vehiculoParam) {
-		Vehiculo vehiculo = new Vehiculo(vehiculoParam);
+	public long ejecutar(Vehiculo vehiculo) {
 		this.verificarAccesoPlaca(vehiculo.getTipo(), vehiculo.getPlaca(), new Date());
 		this.verificarPermanencia(vehiculo.getPlaca());
 		this.verificarDisponibilidad(vehiculo.getTipo());
