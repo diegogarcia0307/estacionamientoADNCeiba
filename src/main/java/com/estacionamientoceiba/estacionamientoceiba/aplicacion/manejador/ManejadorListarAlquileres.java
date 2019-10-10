@@ -23,15 +23,22 @@ public class ManejadorListarAlquileres {
 		this.servicioListarVehiculo = servicioListarVehiculo;
 	}
 
-	public Collection<RespuestaListarAlquiler> ejecutar() {
-		Collection<Vehiculo> vehiculos = this.servicioListarVehiculo.listarTodosEnParqueadero();
-		Collection<Alquiler> alquileres = this.servicioListarAlquiler.listarAlquileresEnUso();
-		return new FabricaRespuestaListarAlquiler().crearListaRespuesta(alquileres, vehiculos);
-	}
-
 	public RespuestaListarAlquiler buscarAlquiler(String placa) {
 		Alquiler alquiler = this.servicioListarAlquiler.buscarAlquiler(placa);
 		Vehiculo vehiculo = this.servicioListarVehiculo.buscarVehiculo(placa);
-		return new FabricaRespuestaListarAlquiler().crearRespuestaAlquiler(alquiler, vehiculo);
+		return new FabricaRespuestaListarAlquiler().construir(alquiler, vehiculo);
 	}
+
+	public Collection<RespuestaListarAlquiler> listarAlquileresEnUso() {
+		Collection<Vehiculo> vehiculos = this.servicioListarVehiculo.listarTodosEnParqueadero();
+		Collection<Alquiler> alquileres = this.servicioListarAlquiler.listarAlquileresEnUso();
+		return new FabricaRespuestaListarAlquiler().construirColeccion(alquileres, vehiculos);
+	}
+
+	public Collection<RespuestaListarAlquiler> listarTodosLosAlquileres() {
+		Collection<Vehiculo> vehiculos = this.servicioListarVehiculo.listarTodos();
+		Collection<Alquiler> alquileres = this.servicioListarAlquiler.listarTodo();
+		return new FabricaRespuestaListarAlquiler().construirColeccion(alquileres, vehiculos);
+	}
+
 }

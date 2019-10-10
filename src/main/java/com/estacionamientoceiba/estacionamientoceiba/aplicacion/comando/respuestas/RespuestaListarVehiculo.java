@@ -1,7 +1,5 @@
 package com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.respuestas;
 
-import java.util.Date;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,14 +9,11 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class RespuestaListarAlquiler {
+public class RespuestaListarVehiculo {
 	private long idVehiculo;
 	private String placa;
+	private String marca;
+	private String color;
+	private double cilindraje;
 	private int tipo;
-	private long idAlquiler;
-	private Date fechaIngreso;
-	private Date fechaSalida;
-	private String puesto;
-	private double pago;
-
 }

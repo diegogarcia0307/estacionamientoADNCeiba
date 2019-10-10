@@ -12,27 +12,24 @@ import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.Vehiculo;
 @Component
 public class FabricaRespuestaListarAlquiler {
 
-	public RespuestaListarAlquiler crearRespuestaAlquiler(Alquiler alquiler, Vehiculo vehiculo) {
+	public RespuestaListarAlquiler construir(Alquiler alquiler, Vehiculo vehiculo) {
 
-		return new RespuestaListarAlquiler(vehiculo.getPlaca(), vehiculo.getTipo(), alquiler.getFechaIngreso(),
-				alquiler.getFechaSalida(), alquiler.getPuesto(), alquiler.getPago());
+		return new RespuestaListarAlquiler(vehiculo.getIdVehiculo(), vehiculo.getPlaca(), vehiculo.getTipo(),
+				alquiler.getIdAlquiler(), alquiler.getFechaIngreso(), alquiler.getFechaSalida(), alquiler.getPuesto(),
+				alquiler.getPago());
 
 	}
 
-	public Collection<RespuestaListarAlquiler> crearListaRespuesta(Collection<Alquiler> alquileres,
+	public Collection<RespuestaListarAlquiler> construirColeccion(Collection<Alquiler> alquileres,
 			Collection<Vehiculo> vehiculos) {
 
 		ArrayList<RespuestaListarAlquiler> listado = new ArrayList<>();
 
-		for (Alquiler alquiler : alquileres) {
-			for (Vehiculo vehiculo : vehiculos) {
+		for (Alquiler alquiler : alquileres)
+			for (Vehiculo vehiculo : vehiculos)
 
-				if (alquiler.getIdVehiculo() == vehiculo.getIdVehiculo()) {
-					listado.add(this.crearRespuestaAlquiler(alquiler, vehiculo));
-				}
-
-			}
-		}
+				if (alquiler.getIdVehiculo() == vehiculo.getIdVehiculo())
+					listado.add(this.construir(alquiler, vehiculo));
 
 		return listado;
 
