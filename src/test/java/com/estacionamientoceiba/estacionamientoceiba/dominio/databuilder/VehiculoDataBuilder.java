@@ -4,6 +4,7 @@ import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.Vehiculo;
 
 public class VehiculoDataBuilder {
 
+	private long idVehiculo;
 	private String placa;
 	private String marca;
 	private String color;
@@ -41,6 +42,6 @@ public class VehiculoDataBuilder {
 	}
 
 	public Vehiculo buildVehiculo() {
-		return new Vehiculo(this.tipo, this.placa, this.cilindraje, this.marca, this.color);
+		return new Vehiculo(idVehiculo, tipo, placa, cilindraje, marca, color);
 	}
 }

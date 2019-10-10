@@ -26,10 +26,10 @@ public class Alquiler {
 		this.idVehiculo = idVehiculo;
 	}
 
-	public Alquiler(long idVehiculo, Date fechaIngreso, Date fechaSalida, String puesto, double pago) {
+	public Alquiler(long idAlquiler, long idVehiculo, Date fechaIngreso, Date fechaSalida, String puesto, double pago) {
 
 		ValidadorAlquiler.validarVehiculo(idVehiculo);
-
+		this.idAlquiler = idAlquiler;
 		this.idVehiculo = idVehiculo;
 		this.fechaIngreso = fechaIngreso;
 		this.fechaSalida = fechaSalida;
