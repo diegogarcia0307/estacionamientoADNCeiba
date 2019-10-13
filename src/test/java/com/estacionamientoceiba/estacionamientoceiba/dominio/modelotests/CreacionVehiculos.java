@@ -65,8 +65,8 @@ public class CreacionVehiculos {
 	public void verificarVehiculoNuloTest() {
 		AlquilerDataBuilder buildAlquiler = new AlquilerDataBuilder();
 		Date fechaIngreso = new Date();
-		buildAlquiler.withVehiculo(null).withPago(11000).withPuesto("MOTO 1").withFechaIngreso(fechaIngreso)
-				.withFechaSalida(fechaIngreso).buildAlquiler();
+		buildAlquiler.withPago(11000).withPuesto("MOTO 1").withFechaIngreso(fechaIngreso).withFechaSalida(fechaIngreso)
+				.buildAlquiler();
 	}
 
 }

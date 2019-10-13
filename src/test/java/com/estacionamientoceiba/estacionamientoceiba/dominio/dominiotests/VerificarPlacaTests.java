@@ -26,7 +26,7 @@ public class VerificarPlacaTests {
 		String esperado = "Puede ingresar";
 
 		// Act
-		String actual = ValidadorAlquiler.verificarPlaca(CARRO, "AR43S", fecha);
+		String actual = ValidadorAlquiler.verificarAccesoPlaca(CARRO, "AR43S", fecha);
 
 		// Assert
 		assert (actual.equalsIgnoreCase(esperado));
@@ -39,7 +39,7 @@ public class VerificarPlacaTests {
 		Date fecha = sdf.parse("15:05:32 25-06-2019");
 
 		// Act
-		ValidadorAlquiler.verificarPlaca(CARRO, "AR43S", fecha);
+		ValidadorAlquiler.verificarAccesoPlaca(CARRO, "AR43S", fecha);
 
 	}
 

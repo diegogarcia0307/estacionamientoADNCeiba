@@ -3,26 +3,27 @@ package com.estacionamientoceiba.estacionamientoceiba.dominio.databuilder;
 import java.util.Date;
 
 import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.Alquiler;
-import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.Vehiculo;
 
 public class AlquilerDataBuilder {
 
-	private Vehiculo vehiculo;
+	private long idAlquiler;
+	private long idVehiculo;
 	private Date fechaIngreso;
 	private Date fechaSalida;
 	private String puesto;
 	private double pago;
 
 	public AlquilerDataBuilder() {
-		vehiculo = new Vehiculo();
+		idVehiculo = 0;
 		fechaIngreso = new Date(0);
 		fechaSalida = null;
 		puesto = "<DEFAULT>";
 		pago = 0;
+		idAlquiler = 0;
 	}
 
-	public AlquilerDataBuilder withVehiculo(Vehiculo vehiculo) {
-		this.vehiculo = vehiculo;
+	public AlquilerDataBuilder withVehiculo(long idVehiculo) {
+		this.idVehiculo = idVehiculo;
 		return this;
 	}
 
@@ -47,6 +48,6 @@ public class AlquilerDataBuilder {
 	}
 
 	public Alquiler buildAlquiler() {
-		return new Alquiler(vehiculo, fechaIngreso, fechaSalida, puesto, pago);
+		return new Alquiler(idAlquiler, idVehiculo, fechaIngreso, fechaSalida, puesto, pago);
 	}
 }

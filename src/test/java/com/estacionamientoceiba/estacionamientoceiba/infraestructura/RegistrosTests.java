@@ -16,8 +16,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.web.util.NestedServletException;
 
-import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.Alquiler;
-import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.Vehiculo;
+import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.ComandoAlquiler;
+import com.estacionamientoceiba.estacionamientoceiba.infraestructura.databuilder.ComandoAlquilerDataBuilder;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -29,56 +29,64 @@ public class RegistrosTests {
 	@Autowired
 	private MockMvc mvc;
 
-	private final String URL = "/apiv1/alquileres/";
-	private final String PLACACARRO = "DDDE333";
-	private final String PLACAMOTOMENOR = "23DRSG";
-	private final String PLACAMOTOMAYOR = "SW342D";
-	private final int CARRO = 1;
-	private final int MOTO = 2;
-	private final ObjectMapper objetoAlquiler = new ObjectMapper();
+	private static final String URL = "/apiv1/alquileres/";
+	private static final String PLACACARRO = "DDDE3u33";
+	private static final String PLACAMOTOMENOR = "2u3DRSG";
+	private static final String PLACAMOTOMAYOR = "SuW342D";
+	private static final int CARRO = 1;
+	private static final int MOTO = 2;
+	private static final String ESTADO_DE_OPERACION = "$.estadoOperacion";
+
+	private ObjectMapper objetoAlquiler = new ObjectMapper();
+
+	private ComandoAlquiler comandoAlquiler;
 
 	@Test
 	public void registroCarroTest() throws Exception {
 
-		Alquiler alquiler = new Alquiler(new Vehiculo(CARRO, PLACACARRO, 2000, "RENAULT", "VERDE"));
+		comandoAlquiler = new ComandoAlquilerDataBuilder().conTipo(CARRO).conPlaca(PLACACARRO).conMarca("HYUNDAY")
+				.construir();
 
-		mvc.perform(MockMvcRequestBuilders.post(URL).content(objetoAlquiler.writeValueAsString(alquiler))
+		mvc.perform(MockMvcRequestBuilders.post(URL).content(objetoAlquiler.writeValueAsString(comandoAlquiler))
 				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
-				.andExpect(MockMvcResultMatchers.jsonPath("$.estadoOperacion").exists());
+				.andExpect(MockMvcResultMatchers.jsonPath(ESTADO_DE_OPERACION).exists());
 
 	}
 
 	@Test
 	public void registroMotoCilindrajeMenorTest() throws Exception {
 
-		Alquiler alquiler = new Alquiler(new Vehiculo(MOTO, PLACAMOTOMENOR, 120, "KAWAZAKY", "AMARILLO"));
+		comandoAlquiler = new ComandoAlquilerDataBuilder().conTipo(MOTO).conPlaca(PLACAMOTOMENOR).conCilindraje(120)
+				.construir();
 
-		mvc.perform(MockMvcRequestBuilders.post(URL).content(objetoAlquiler.writeValueAsString(alquiler))
+		mvc.perform(MockMvcRequestBuilders.post(URL).content(objetoAlquiler.writeValueAsString(comandoAlquiler))
 				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
-				.andExpect(MockMvcResultMatchers.jsonPath("$.estadoOperacion").exists());
+				.andExpect(MockMvcResultMatchers.jsonPath(ESTADO_DE_OPERACION).exists());
 
 	}
 
 	@Test
 	public void registroMotoCilindrajeMayorTest() throws Exception {
-		Alquiler alquiler = new Alquiler(new Vehiculo(MOTO, PLACAMOTOMAYOR, 600, "AUTECO", "ROJO"));
 
-		mvc.perform(MockMvcRequestBuilders.post(URL).content(objetoAlquiler.writeValueAsString(alquiler))
+		comandoAlquiler = new ComandoAlquilerDataBuilder().conTipo(MOTO).conPlaca(PLACAMOTOMAYOR).conCilindraje(600)
+				.construir();
+
+		mvc.perform(MockMvcRequestBuilders.post(URL).content(objetoAlquiler.writeValueAsString(comandoAlquiler))
 				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
-				.andExpect(MockMvcResultMatchers.jsonPath("$.estadoOperacion").exists());
+				.andExpect(MockMvcResultMatchers.jsonPath(ESTADO_DE_OPERACION).exists());
 
 	}
 
 	@Test(expected = NestedServletException.class)
 	public void ingresarCarroExistente() throws Exception {
 
-		Alquiler alquiler = new Alquiler(new Vehiculo(CARRO, "EXISTE", 2000, "KYA", "MARRON"));
+		comandoAlquiler = new ComandoAlquilerDataBuilder().conTipo(CARRO).conPlaca("otro").construir();
 
-		mvc.perform(MockMvcRequestBuilders.post(URL).content(objetoAlquiler.writeValueAsString(alquiler))
+		mvc.perform(MockMvcRequestBuilders.post(URL).content(objetoAlquiler.writeValueAsString(comandoAlquiler))
 				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
-				.andExpect(MockMvcResultMatchers.jsonPath("$.estadoOperacion").exists());
+				.andExpect(MockMvcResultMatchers.jsonPath(ESTADO_DE_OPERACION).exists());
 
-		mvc.perform(MockMvcRequestBuilders.post(URL).content(objetoAlquiler.writeValueAsString(alquiler))
+		mvc.perform(MockMvcRequestBuilders.post(URL).content(objetoAlquiler.writeValueAsString(comandoAlquiler))
 				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON));
 
 	}
