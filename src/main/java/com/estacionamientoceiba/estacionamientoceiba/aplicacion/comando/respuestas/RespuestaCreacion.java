@@ -7,9 +7,12 @@ import lombok.Setter;
 @Setter
 public class RespuestaCreacion {
 
-	String idGenerado;
-	boolean estadoOperacion;
-	String mensaje;
+	private String idGenerado;
+	private boolean estadoOperacion;
+	private String mensaje;
+
+	private static final String RESPUESTA_NEGATIVA = "La operación no se pudo realizar. Inténtelo de nuevo.";
+	private static final String RESPUESTA_POSITIVA = "La operación se pudo realizar con éxito.";
 
 	public RespuestaCreacion(RespuestaCreacion respuesta) {
 		idGenerado = respuesta.getIdGenerado();
@@ -21,9 +24,9 @@ public class RespuestaCreacion {
 		this.idGenerado = idGenerado;
 		this.estadoOperacion = estadoOperacion;
 		if (estadoOperacion) {
-			setMensaje("La operación se pudo realizar con éxito.");
+			setMensaje(RESPUESTA_POSITIVA);
 		} else {
-			setMensaje("La operación no se pudo realizar. Inténtelo de nuevo.");
+			setMensaje(RESPUESTA_NEGATIVA);
 		}
 	}
 

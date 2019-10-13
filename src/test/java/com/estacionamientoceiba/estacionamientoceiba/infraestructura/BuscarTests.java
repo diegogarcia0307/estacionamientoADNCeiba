@@ -16,8 +16,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.Alquiler;
-import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.Vehiculo;
+import com.estacionamientoceiba.estacionamientoceiba.aplicacion.comando.ComandoAlquiler;
+import com.estacionamientoceiba.estacionamientoceiba.infraestructura.databuilder.ComandoAlquilerDataBuilder;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -28,23 +28,23 @@ public class BuscarTests {
 	@Autowired
 	private MockMvc mvc;
 
-	private final String URL = "/apiv1/alquileres/";
-	private final String PLACACARRO = "4RATT3";
-	private final ObjectMapper objetoJSON = new ObjectMapper();
+	private static final String URL = "/apiv1/alquileres/";
+	private static final String URL_OBTENER_VEHICULO = "/apiv1/alquileres/buscar/vehiculo/";
+	private static final String PLACACARRO = "4RATT3";
+	private static final ObjectMapper objetoJSON = new ObjectMapper();
 
 	@Test
 	public void buscarCarroTest() throws Exception {
 
-		int carro = 1;
+		ComandoAlquiler comandoAlquiler = new ComandoAlquilerDataBuilder().conTipo(1).conPlaca(PLACACARRO)
+				.conMarca("HYUNDAY").construir();
 
-		Alquiler alquiler = new Alquiler(new Vehiculo(carro, PLACACARRO, 1500, "KYA", "MARRON"));
-
-		mvc.perform(MockMvcRequestBuilders.post(URL).content(objetoJSON.writeValueAsString(alquiler))
+		mvc.perform(MockMvcRequestBuilders.post(URL).content(objetoJSON.writeValueAsString(comandoAlquiler))
 				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
 				.andExpect(MockMvcResultMatchers.jsonPath("$.estadoOperacion").exists())
 				.andExpect(jsonPath("$.placa", is(PLACACARRO)));
 
-		mvc.perform(get(URL + "{placa}", PLACACARRO).contentType((MediaType.APPLICATION_JSON)))
+		mvc.perform(get(URL_OBTENER_VEHICULO + "{placa}", PLACACARRO).contentType((MediaType.APPLICATION_JSON)))
 				.andExpect(MockMvcResultMatchers.jsonPath("$.vehiculo.placa").value(PLACACARRO));
 	}
 }

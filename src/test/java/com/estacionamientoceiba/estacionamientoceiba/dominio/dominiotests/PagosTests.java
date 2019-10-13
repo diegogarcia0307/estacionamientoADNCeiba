@@ -15,15 +15,13 @@ import com.estacionamientoceiba.estacionamientoceiba.dominio.modelo.validador.Va
 public class PagosTests {
 
 	private final String FORMATO_FECHA = "HH:mm:ss dd-MM-yyyy";
-	private final int CARRO = 1;
 	private final int MOTO = 2;
 
 	@Test
 	public void calcularPagoMotoCilindrajeMayorTest() throws ParseException {
 		// Arrange
 		VehiculoDataBuilder buildVehiculo = new VehiculoDataBuilder();
-		Vehiculo vehiculo = buildVehiculo.withTipo(MOTO).withCilindraje(600).withColor("RED").withMarca("BAJAJ")
-				.withPlaca("WEARV23").buildVehiculo();
+		Vehiculo vehiculo = buildVehiculo.withTipo(MOTO).withCilindraje(600).buildVehiculo();
 
 		SimpleDateFormat sdf = new SimpleDateFormat(FORMATO_FECHA);
 		Date fechaIngreso = sdf.parse("8:00:00 23-06-2019");
@@ -41,8 +39,7 @@ public class PagosTests {
 	public void calcularPagoMotoCilindrajeMenorTest() throws ParseException {
 		// Arrange
 		VehiculoDataBuilder buildVehiculo = new VehiculoDataBuilder();
-		Vehiculo vehiculo = buildVehiculo.withTipo(MOTO).withCilindraje(120).withColor("RED").withMarca("SUZUKY")
-				.withPlaca("8BHB4").buildVehiculo();
+		Vehiculo vehiculo = buildVehiculo.withTipo(MOTO).withCilindraje(120).buildVehiculo();
 
 		SimpleDateFormat sdf = new SimpleDateFormat(FORMATO_FECHA);
 		Date fechaIngreso = sdf.parse("5:00:00 23-06-2019");
@@ -61,8 +58,7 @@ public class PagosTests {
 	public void calcularPagoHorasMotoCilindrajeMenorTest() throws ParseException {
 		// Arrange
 		VehiculoDataBuilder buildVehiculo = new VehiculoDataBuilder();
-		Vehiculo vehiculo = buildVehiculo.withTipo(MOTO).withCilindraje(120).withColor("RED").withMarca("SUZUKY")
-				.withPlaca("BH789S").buildVehiculo();
+		Vehiculo vehiculo = buildVehiculo.withTipo(MOTO).withCilindraje(120).buildVehiculo();
 
 		SimpleDateFormat sdf = new SimpleDateFormat(FORMATO_FECHA);
 		Date fechaIngreso = sdf.parse("5:00:00 23-06-2019");
